@@ -1,5 +1,6 @@
 cliinstaller (0.2.4-1) unstable; urgency=low
 
   * Initial release
+  * only offer ssh as service to start during boot
 
- -- Nikolas Poniros <edhunter@sidux.com>  Mon, 23 Nov 2009 08:58:00 +0100
+ -- Nikolas Poniros <edhunter@sidux.com>  Wed, 16 Dec 2009 18:05:39 +0100

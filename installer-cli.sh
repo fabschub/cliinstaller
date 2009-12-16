@@ -85,6 +85,7 @@ PARTITION_PROG="cfdisk"
 CHECK_IF_HOME_EXISTS="no"
 HOME_PARTITION=""
 IS_DISK_USB="no"
+ROOT_IS_LVM="no"
 
 # Temp file to hold a list of available partitions that can be used for installation
 # (must be pre-formated)
@@ -533,6 +534,10 @@ choose_root ()
 		IS_DISK_USB="yes"
 	fi
 
+	#if [ grep "${ROOT_PARTITION}" ${PARTITIONS_LIST} | grep "lvm" ]; then
+	#	ROOT_IS_LVM="yes"
+	#fi
+
 	cp ${PARTITIONS_LIST} ${PARTITIONS_LIST_2}
 	# Find the partition name $partition and remove it from the list
 	sed -e "/${partition}/d" ${PARTITIONS_LIST_2} > ${PARTITIONS_LIST}
@@ -564,10 +569,12 @@ set_mount_points ()
 					# Get just the partition name like sda1, sdb2 etc
 					partition_name=$(echo "${partition}" | cut -d "/" -f 3)
 					# Get the mapper name in case user choose a mapper
-					if [ "$partition" = "mapper" ]; then 
-						partition=$(echo "${ROOT_PARTITION}" | cut -d "/" -f 4)
+					if [ "$partition_name" = "mapper" ]; then 
+						partition_name=$(echo "${partition}" | cut -d "/" -f 4)
 					fi
 
+					## SEE IF THIS IS BETTER TO BE CALLED AFTER MOUNT POINT IS SET IN
+					## CASE USER CANCELS
 					cp ${PARTITIONS_LIST} ${PARTITIONS_LIST_2}
 					# Find the partition name $partition_name and remove it from the list
 					sed /${partition_name}/d ${PARTITIONS_LIST_2} > ${PARTITIONS_LIST}
@@ -575,6 +582,8 @@ set_mount_points ()
 					available_mount_points="home boot opt root tmp usr var"
 					select_one "${title}" "${msg}" "${available_mount_points}"
 					# If user pressed cancel break out of the loop
+
+					## SEE TO OFFER THE USER THE OPTION TO CANCEL IN CASE HE CHOSE THE WRONG MOUNT POINT
 					if [ $? -ne 0 ]; then
 						break
 					fi
@@ -869,7 +878,8 @@ input_services ()
 {
 	title="Services"
 	msg="Select the services you want to start on boot"
-	services="cups smail ssh samba"
+	#services="cups smail ssh samba"
+	services="ssh"
 	select_more "$title" "$msg" $services
 	if [ $? -eq 0 ]; then
 		#ssft returns a list with \n in it. remove it and also use sed to remove the space
