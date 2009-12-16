@@ -1,0 +1,6 @@
+installer-cli.sh   usr/sbin
+scripts/cfdisk_wrapper.sh	usr/share/cli-installer/
+scripts/check_existing_home.sh	usr/share/cli-installer/
+scripts/disk   usr/share/cli-installer/
+scripts/um_all.sh   usr/share/cli-installer/
+

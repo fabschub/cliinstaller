@@ -1,0 +1,237 @@
+Fri 2009-11-20 1100 hrs UTC
+
+VERSION: 0.2.4
+
+* added disk script to replace partition_list.sh
+* made changes to the code for it to work with disk script
+* removed checks for USB disks. those are done with disk now
+* removed automatic setting of the filesystem. the user is force to choose a filesystem
+* added checks to custom_root to make sure that the device given is actually a block device
+and if the device is of the form /dev/[h,s]d? to make sure that it has a number after ? to 
+make it a valid partition name
+* minor changes to the output messages
+* added autodetection of swap partitions
+
+__________________________________
+
+Tue 2009-10-20 2100 hrs UTC
+
+VERSION: 0.2.3
+
+* in case user selects no root format via fll-installer, then auto-detect the root's filesystem
+* removed jfs as an option for root partition file system
+
+__________________________________
+
+Fri 2009-10-09 2130 hrs UTC
+
+VERSION: 0.2.2
+
+* added code to redirect all stderr to $ERROR_LOG when dialog is used as SSFT_FRONTEND
+* changed default interface to dialog
+* enabled root check. script exists if you are not root
+* removed some useless echos. shouldnt have beeen there in the first place
+
+__________________________________
+
+Wed 2009-10-07 1845 hrs UTC
+
+VERSION: 0.2.1
+
+* removed code to call fll-installer via ssft_progress_bar
+* disabled the fuction that asks the user if he wants to create a bootdisk
+
+__________________________________
+
+Wed 2009-08-12 1450 hrs UTC
+
+VERSION: 0.2.0
+
+* added code to allow the user to select services to start during boot
+* fixed select_swap() because ssft returns a list with \n and I cant use that
+
+___________________________________
+Thu 2009-08-06 0230 hrs UTC
+
+VERSION: 0.1.9
+
+* added code to allow the user to specify swap partitions
+* added a short description of what the script does
+* changed some exit codes so that the config file doesnt get deleted if
+user abords after the config file was written
+* added code to partition_list.sh to be able to create a temporary text file 
+with swap partitions
+* added SWAP_PART_LIST constant which contains the path to the temporary text file with
+the swap partitions
+* added code to um_all.sh to check whether /media/hdinstall exists before trying to kill it.
+Not needed, it was just bugging me.
+
+___________________________________
+Thu 2009-07-30 0100 hrs UTC
+
+VERSION: 0.1.8
+
+* added function to escape special characters for passwords
+
+___________________________________
+Thu 2009-07-23 2145 hrs UTC
+
+VERSION: 0.1.7
+
+* added code to allow the user to manually set a root partition in case the 
+script is not able to detect any hard disks
+* added code to allow the user to select a "custom" partition as root
+
+____________________________________
+Wed 2009-07-22 1915 hrs UTC
+
+VERSION: 0.1.6
+
+* added code to allow the user to select lvm and hdXx disks/partitions
+* added partition_list.sh script that creates the PARTITIONS_LIST (testing needed)
+
+_____________________________________
+Thu 2009-07-16 1615 hrs UTC
+
+VERSION: 0.1.5
+
+* added progress bar for fll-installer
+
+_____________________________________
+Thu 2009-07-16 1000 hrs UTC
+
+VERSION: 0.1.4
+
+* after length_check the REAL_NAME was not checked for invalid characters. Fixed it
+* added code to check if a disk is USB and to force grub to be put in the partition
+if disk is USB
+_____________________________________
+Wed 2009-07-15 1340 hrs UTC
+
+VERSION: 0.1.3
+
+* Put almost everything into a function
+* added the possibility to remove home mount point if the user choses so
+during the home_exists test
+* changed the way check_length and compare_pass are called so I dont use
+a sub-shell anymore. Needs more testing
+
+_____________________________________
+Wed 2009-07-15 0200 hrs UTC
+
+VERSION: 0.1.2
+
+* added code to allow the user to select front-ends for ssft
+* added help function
+______________________________________
+Tue 2009-07-14 1000 hrs UTC
+
+VERSION: 0.1.1
+
+* switched to ssft. rewrote the code so it uses ssft functions instead of echo
+and read
+* removed some error checking code as it is not needed anymore with ssft
+* created function to check for string's length
+* created function to compare 2 passwords
+* added various other small functions to act as wrappers for some ssft functions
+* added format_disk and set_timezone functions
+
+______________________________________
+Sun 2009-07-12 0020 hrs UTC
+
+VERSION: 0.1.0
+
+* added code to make sure that each mount point is just set once
+* fixed the while loop that checks if a partition has already a mount point assigned to it
+* added code to call fll-installer
+* added code to ask for file system only if user chose to format
+* added code for timezone selection
+_______________________________________
+Sat 2009-07-11 0330 hrs UTC
+
+VERSION: 0.0.9
+
+* changed the way the partitions are read. now the partitions get written into a temp
+file (PARTITIONS_LIST) at the beginning and I cat that file when I need the partitions.
+* also the number of partitions is read at the beginning and saved into NUM_OF_PARTITIONS
+* added code to change PARTITIONS_LIST when / is assigned
+* added check so the user can not choose to assign a mount point to a partition that
+already has a mount point assigned to it
+* added code to change PARTITIONS_LIST whenever a mount point is assigned to a partition
+* fixed some of the while tests. they didnt work if the 1st letter was a number
+* added code to integrate um_all.sh to check for mounted hard disks and to unmount them
+
+_________________________________________
+Sat 2009-07-11 0045 hrs UTC
+
+VERSION: 0.8
+
+* added code to test for invalid characters for real name input
+* added code to escape quotes (') in the real name
+
+_________________________________________
+Fri 2009-07-10 0341 hrs UTC
+
+VERSION: 0.7
+
+* added exit code check as mentioned below
+* added checks to make sure the user inputs a number when asked for one
+* minor changes to comments and variable names
+_________________________________________
+Thu 2009-07-09 2020 hrs UTC
+
+VERSION: 0.6
+
+* added code so that the user can set mount points for other partitions
+* added a check to make sure that /home/user does not exist (is only called if the user 
+selects home as mount point for a partition). I need to add exit code check for that.
+* changed the way user selects a partition for root. User gets a numbered list and selects a number.
+Need to add check to make sure that user inputs a number and not an other character
+
+
+_________________________________________
+Wed 2009-07-08 0730 hrs UTC
+
+VERSION: 0.5
+
+* added option to allow the user to select if he wants to format his hard disk. using cfdisk_wrapper.sh to do that
+* added check to make sure the user inputs a valid partition on which to install
+* added code to give the user a list of available partitions to install on
+* added code to check for password/username and name length
+
+__________________________________________
+Wed 2009-07-08 0200 hrs UTC
+
+VERSION: 0.4
+
+* added set -u to make sure that are variables are set before used
+* moved trap furtherup. added rm -f $CONFIG_FILE and added SIGTERM
+* added allowed characters constants for hostname and username
+* changed awk in the while test loops for hostname and username and replaced them with grep
+
+__________________________________________
+Mon 2009-07-06 1550 hrs UTC
+
+VERSION: 0.3
+
+* replaced read -s with stty -echo; read; stty echo; for portability
+* added trap to make sure that i stty echo in case of SIGINT while reading
+_________________________________________
+Sun 2009-07-05 2330 hrs UTC
+
+VERSION: 0.2
+
+* added character tests for username
+* added line to username to escape - and .
+* implemented hostname with the needed tests
+
+Character testers need testing
+_________________________________________
+Sun 2009-07-05 1930 hrs UTC
+
+VERSION: 0.1
+
+* changed shell to bash to get read -s to work
+* fixed the while loops that check for the correctness of user input
+* added code to ask for user/root password twice. compare the passwords and then hash them
+* changed CONFIG_FILE variable for testing purposes. will be changed back later
