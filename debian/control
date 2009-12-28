@@ -2,13 +2,18 @@ Source: cliinstaller
 Section: admin
 Priority: extra
 Maintainer: Nikolas Poniros <edhunter@sidux.com>
+Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.8.3
 Homepage: https://noc.sidux.com/cli-installer
+Vcs-Svn: svn://svn.berlios.de/fullstory/cliinstaller/trunk
+Vcs-Browser: http://svn.berlios.de/wsvn/fullstory/cliinstaller/trunk/
 
 Package: cliinstaller
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, fll-installer (>= 0.2.1),
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ fll-installer (>= 0.2.1),
  sidux-scripts (>= 0.2.6),
  fll-live-initscripts (>= 2.0.64),
  psmisc,

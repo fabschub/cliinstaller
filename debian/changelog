@@ -1,3 +1,12 @@
+cliinstaller (0.2.5) unstable; urgency=low
+
+  * add myself as uploader.
+  * wrap Depends.
+  * add Vcs-Svn/ Vcs-Browser.
+  * consistently drop *.sh suffices from executables (policy 10.4).
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 28 Dec 2009 02:19:49 +0100
+
 cliinstaller (0.2.4) unstable; urgency=low
 
   * Initial release

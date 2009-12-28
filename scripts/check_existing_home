@@ -1,6 +1,6 @@
 #!/bin/sh
 # DESCRIPTION: 	Check for existence of directory USERNAME on partition HOME_PARTITION.
-# USAGE:	Call as check_existing_home.sh home_device username.
+# USAGE:	Call as check_existing_home home_device username.
 #
 # RETURN VALUES:
 #	0 no /home/username exists

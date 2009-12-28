@@ -64,7 +64,7 @@ if [ -f /usr/bin/ssft.sh ]; then
 	. /usr/bin/ssft.sh || exit 1
 	[ "${interface}" = "text" ] && SSFT_FRONTEND="${interface}" || SSFT_FRONTEND="dialog"
 else
-	echo "Please install ssft.sh"
+	echo "Please install ssft"
 	exit 1
 fi
 
@@ -312,9 +312,9 @@ home_exists ()
 	# As long as there is a HOME_PARTITION set ask for new name or mount point removal
 	while [ -n "${HOME_PARTITION}" ]
 		do
-			# check_existing_home.sh is the script that does the actuall checking
+			# check_existing_home is the script that does the actuall checking
 
-			/usr/share/cli-installer/scripts/check_existing_home.sh ${HOME_PARTITION} ${USERNAME}
+			/usr/share/cli-installer/scripts/check_existing_home ${HOME_PARTITION} ${USERNAME}
 			exit_status=$?
 			# No username USERNAME exists on HOME_PARTITION
 			if [ $exit_status -eq 0 ]; then
@@ -330,7 +330,7 @@ home_exists ()
 				break
 			elif [ $exit_status -eq 1 ]; then
 				error_msg "Could not mount partition. Abording" "1"
-			# exit_status of check_existing_home.sh is 2
+			# exit_status of check_existing_home is 2
 			else
 				#needs some more info
 				display_msg "Check home" "Username exists"
@@ -350,7 +350,7 @@ home_exists ()
 		done
 }
 
-# Function to call cfdisk_wrapper.sh to format the hard disk
+# Function to call cfdisk_wrapper to format the hard disk
 format_disk () 
 {
 	title="Format disk"
@@ -363,7 +363,7 @@ format_disk ()
 		select_more "${title}" "${msg}" $partition_list
 		if [ $? -eq 0 ]; then
 			for disk in ${SSFT_RESULT} ; do
-				/usr/share/cli-installer/scripts/cfdisk_wrapper.sh ${PARTITION_PROG} ${disk}
+				/usr/share/cli-installer/scripts/cfdisk_wrapper ${PARTITION_PROG} ${disk}
 			done
 		fi
 	else
@@ -1116,7 +1116,7 @@ rm -f ${PARTITIONS_LIST}
 rm -f ${PARTITIONS_LIST_2}
 
 ### CODE TO CHECK IF THERE ARE PARTITIONS STILL MOUNTED
-/usr/share/cli-installer/scripts/um_all.sh "check"
+/usr/share/cli-installer/scripts/um_all "check"
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
 	title="Unmount Partitions"
@@ -1126,7 +1126,7 @@ if [ $exit_status -eq 1 ]; then
 		Unmount now?"
 	yesno "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
-		/usr/share/cli-installer/scripts/um_all.sh
+		/usr/share/cli-installer/scripts/um_all
 		exit_status=$?
 		if [ $exit_status -eq 1 ]; then
 			msg="Could not unmount all partitions
