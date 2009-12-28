@@ -1,4 +1,4 @@
-cliinstaller (0.2.4-1) unstable; urgency=low
+cliinstaller (0.2.4) unstable; urgency=low
 
   * Initial release
   * only offer ssh as service to start during boot
