@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ "$DEBUG" = "TRUE" ]; then
 	set -x
 fi
@@ -21,8 +21,7 @@ fdisk -l "$DISK" | grep "^${DISK}" > $PARTITION_BEFORE
 #-------------------------------------------------
 # 2. call partiton program
 #-------------------------------------------------
-hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive \
-                --run " ${PROG} ${DISK}"
+${PROG} ${DISK}
 #
 #-------------------------------------------------
 # 3. get the new partition save it into after

@@ -23,7 +23,7 @@
 # On Debian GNU/Linux systems, the text of the GPL license can be                 
 # found in /usr/share/common-licenses/GPL.                                        
 #                                                                                 
-# version: 0.2.4
+# version: 0.2.6
 #--------------------------------------------------------------------------
 
 #Short description of the script:
@@ -42,14 +42,14 @@ call_help ()
 	echo " -I interface"
 	echo "		select an interface to use with ssft."
 	echo "		options are: text , dialog "
-	echo "		Default is dialog"
+	echo "		Default is dialog if installed"
 	exit
 }
 
 while getopts vhI: opt
 	do
 		case $opt in
-			v)  echo "Version: 0.2.4"; exit;;
+			v)  echo "Version: 0.2.6"; exit;;
 			I)  interface="$OPTARG";;
 			h)  call_help;;
 		esac
@@ -62,7 +62,14 @@ fi
 
 if [ -f /usr/bin/ssft.sh ]; then
 	. /usr/bin/ssft.sh || exit 1
+
 	[ "${interface}" = "text" ] && SSFT_FRONTEND="${interface}" || SSFT_FRONTEND="dialog"
+
+	if [ "${SSFT_FRONTEND}" = "dialog" ] && [ -z `which dialog` ]; then
+		echo "dialog is not installed"
+		echo "using text instead"
+		SSFT_FRONTEND="text"
+	fi
 else
 	echo "Please install ssft"
 	exit 1
@@ -117,7 +124,7 @@ fi
 #----------------------------------------------------------------------------------------------------------------------------
 
 FORMAT_HD="yes"
-FILESYSTEM="ext3"
+FILESYSTEM="ext4"
 ROOT_PARTITION=""
 MOUNT_POINT_LIST=""
 IGNORE_DISK_SPACE="no"
@@ -236,7 +243,7 @@ length_check ()
 	is_pass="$3"
 	num="$4"
 	title="$5"
-	if [ ${is_pass} = "yes" ]; then
+	if [ "${is_pass}" = "yes" ]; then
 		while [ ${#string} -lt 6 ]; do
 			msg="The password is too short!
 				It needs to be at least 6 characters long
@@ -314,7 +321,7 @@ home_exists ()
 		do
 			# check_existing_home is the script that does the actuall checking
 
-			/usr/share/cli-installer/scripts/check_existing_home ${HOME_PARTITION} ${USERNAME}
+			/usr/share/cli-installer/check_existing_home ${HOME_PARTITION} ${USERNAME}
 			exit_status=$?
 			# No username USERNAME exists on HOME_PARTITION
 			if [ $exit_status -eq 0 ]; then
@@ -363,7 +370,7 @@ format_disk ()
 		select_more "${title}" "${msg}" $partition_list
 		if [ $? -eq 0 ]; then
 			for disk in ${SSFT_RESULT} ; do
-				/usr/share/cli-installer/scripts/cfdisk_wrapper ${PARTITION_PROG} ${disk}
+				/usr/share/cli-installer/cfdisk_wrapper ${PARTITION_PROG} ${disk}
 			done
 		fi
 	else
@@ -444,7 +451,7 @@ custom_root ()
 			fi
 
 			# Check if the disk / is on is USB
-			if [ -n "$(/usr/share/cli-installer/scripts/disk --usb="${partition%?}")" ]; then 
+			if [ -n "$(/usr/share/cli-installer/disk --usb="${partition%?}")" ]; then 
 				IS_DISK_USB="yes"
 			fi
 		else
@@ -458,18 +465,18 @@ custom_root ()
 
 escape_chars ()
 {
-	echo "$(echo $1 | sed -e 's/!/\\!/g' -e 's/\"/\\"/g' -e 's/\$/\\$/g' -e 's/%/\\%/g' \
+	echo "$(echo "$1" | sed -e 's/!/\\!/g' -e 's/\"/\\"/g' -e 's/\$/\\$/g' -e 's/%/\\%/g' \
 			      -e 's/&/\\&/g' -e 's/{/\\{/g' -e 's/(/\\(/g' -e 's/\[/\\[/g' \
 			      -e 's/)/\\)/g' -e 's/]/\\]/g' -e 's/=/\\=/g' -e 's/}/\\}/g' \
 			      -e 's/?/\\?/g' -e 's/\\/\\/g' -e 's/*/\\*/g' -e 's/+/\\+/g' \
 			      -e 's/~/\\~/g' -e "s/'/\\'/g" -e 's/#/\\#/g' -e 's/>/\\>/g' \
 			      -e 's/</\\</g' -e 's/`/\\`/g' -e 's/|/\\|/g' -e 's/;/\\;/g' \
-			      -e 's/-/\\-/g' -e 's/ /\\ /g' )"
+			      -e 's/-/\\-/g' )"
 }
 
 # Create a list of available partitions
 # and add those into the temp file
-/usr/share/cli-installer/scripts/disk -p 2>/dev/null > ${PARTITIONS_LIST}
+/usr/share/cli-installer/disk -p 2>/dev/null > ${PARTITIONS_LIST}
 
 ### FUNCTIONS TO GET THE VALUES FOR THE VARIABLES THAT WILL BE PASSED LATER TO THE CONFIG FILE
 #-------------------------------------------------------------------------------------------------------------------------
@@ -494,7 +501,7 @@ select_fs ()
 	title="Filesystem selection"
 	msg="Select a file system for your root partition"
 	options="ext3 ext4 ext2 reiserfs"
-	SSFT_DEFAULT="ext3"
+	SSFT_DEFAULT="ext4"
 	select_one "${title}" "${msg}" $options
 	if [ $? -eq 0 ]; then
 		FILESYSTEM="${SSFT_RESULT}"
@@ -530,7 +537,7 @@ choose_root ()
 	fi
 
 	# Check if the disk / is on is USB
-	if [ -n "$(/usr/share/cli-installer/scripts/disk --usb="${partition%?}")" ]; then 
+	if [ -n "$(/usr/share/cli-installer/disk --usb="${partition%?}")" ]; then 
 		IS_DISK_USB="yes"
 	fi
 
@@ -803,9 +810,9 @@ input_user_pass ()
 	# If the passwords dont pass the test at the first time then 
 	# USERPASS will be set by length_check which is called in compare_pass
 	pass1="${USERPASS}"
-	pass2=$(escape_chars $pass1)
+	pass2="$(escape_chars "$pass1")"
 	## create hashed password and escape $
-	USERPASS=$( echo $pass2 | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
+	USERPASS=$( echo "$pass2" | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
 
 }
 
@@ -832,9 +839,9 @@ input_root_pass ()
 	# If the passwords dont pass the test at the first time then 
 	# ROOTPASS will be set by length_check which is called in compare_pass
 	pass1="${ROOTPASS}"
-	pass2=$(escape_chars $pass1)
+	pass2="$(escape_chars "$pass1")"
 	## create hashed password and escape $
-	ROOTPASS=$( echo $pass2 | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
+	ROOTPASS=$( echo "$pass2" | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
 }
 
 input_hostname () 
@@ -1116,7 +1123,7 @@ rm -f ${PARTITIONS_LIST}
 rm -f ${PARTITIONS_LIST_2}
 
 ### CODE TO CHECK IF THERE ARE PARTITIONS STILL MOUNTED
-/usr/share/cli-installer/scripts/um_all "check"
+/usr/share/cli-installer/um_all "check"
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
 	title="Unmount Partitions"
@@ -1126,7 +1133,7 @@ if [ $exit_status -eq 1 ]; then
 		Unmount now?"
 	yesno "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
-		/usr/share/cli-installer/scripts/um_all
+		/usr/share/cli-installer/um_all
 		exit_status=$?
 		if [ $exit_status -eq 1 ]; then
 			msg="Could not unmount all partitions

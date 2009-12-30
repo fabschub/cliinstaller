@@ -20,6 +20,7 @@ Depends: ${shlibs:Depends},
  ssft,
  udev (>= 0.146),
  util-linux (>= 2.16.1)
+Recommends: dialog
 Description: Cli installer for sidux
  A script to create the config file needed by
  fll-installer
