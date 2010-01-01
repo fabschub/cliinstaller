@@ -14,6 +14,7 @@ Architecture: all
 Depends: ${shlibs:Depends},
  ${misc:Depends},
  fll-installer (>= 0.2.1),
+ fll-installer-common (>= 0.8.10),
  sidux-scripts (>= 0.2.6),
  fll-live-initscripts (>= 2.0.64),
  psmisc,

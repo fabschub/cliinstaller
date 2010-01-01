@@ -22,18 +22,3 @@ see `/usr/share/common-licenses/GPL-2'.
 This program is heavily based on install-gui by
     Copyright: © 2007-2008 Horst Tritremmel <peter_weber69@gmx.at>
 
-File: scripts/check_existing_home
-Copyright: © 2008 Michael Deelwater <michael.deelwater@googlemail.com>
-License: GPL-2
-
-File: scripts/disk
-Copyright: © 2008,2009 Joaquim Boura <x-un-i@sidux.com>
-License: GPL-2
-
-File: scripts/um_all
-Copyright: © 2008 Joaquim Boura <x-un-i@sidux.com>
-License: GPL-2
-
-File: scripts/cfdisk_wrapper
-Copyright: © 2007-2008 Horst Tritremmel <peter_weber69@gmx.at>
-License: GPL-2
