@@ -321,7 +321,7 @@ home_exists ()
 		do
 			# check_existing_home is the script that does the actuall checking
 
-			/usr/share/cli-installer/check_existing_home ${HOME_PARTITION} ${USERNAME}
+			/usr/share/fll-installer-common/check_existing_home ${HOME_PARTITION} ${USERNAME}
 			exit_status=$?
 			# No username USERNAME exists on HOME_PARTITION
 			if [ $exit_status -eq 0 ]; then
@@ -370,7 +370,7 @@ format_disk ()
 		select_more "${title}" "${msg}" $partition_list
 		if [ $? -eq 0 ]; then
 			for disk in ${SSFT_RESULT} ; do
-				/usr/share/cli-installer/cfdisk_wrapper ${PARTITION_PROG} ${disk}
+				/usr/share/fll-installer-common/cfdisk_wrapper ${PARTITION_PROG} ${disk}
 			done
 		fi
 	else
@@ -451,7 +451,7 @@ custom_root ()
 			fi
 
 			# Check if the disk / is on is USB
-			if [ -n "$(/usr/share/cli-installer/disk --usb="${partition%?}")" ]; then 
+			if [ -n "$(/usr/share/fll-installer-common/disk --usb="${partition%?}")" ]; then 
 				IS_DISK_USB="yes"
 			fi
 		else
@@ -476,7 +476,7 @@ escape_chars ()
 
 # Create a list of available partitions
 # and add those into the temp file
-/usr/share/cli-installer/disk -p 2>/dev/null > ${PARTITIONS_LIST}
+/usr/share/fll-installer-common/disk -p 2>/dev/null > ${PARTITIONS_LIST}
 
 ### FUNCTIONS TO GET THE VALUES FOR THE VARIABLES THAT WILL BE PASSED LATER TO THE CONFIG FILE
 #-------------------------------------------------------------------------------------------------------------------------
@@ -537,7 +537,7 @@ choose_root ()
 	fi
 
 	# Check if the disk / is on is USB
-	if [ -n "$(/usr/share/cli-installer/disk --usb="${partition%?}")" ]; then 
+	if [ -n "$(/usr/share/fll-installer-common/disk --usb="${partition%?}")" ]; then 
 		IS_DISK_USB="yes"
 	fi
 
@@ -1123,7 +1123,7 @@ rm -f ${PARTITIONS_LIST}
 rm -f ${PARTITIONS_LIST_2}
 
 ### CODE TO CHECK IF THERE ARE PARTITIONS STILL MOUNTED
-/usr/share/cli-installer/um_all "check"
+/usr/share/fll-installer-common/um_all "check"
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
 	title="Unmount Partitions"
@@ -1133,7 +1133,7 @@ if [ $exit_status -eq 1 ]; then
 		Unmount now?"
 	yesno "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
-		/usr/share/cli-installer/um_all
+		/usr/share/fll-installer-common/um_all
 		exit_status=$?
 		if [ $exit_status -eq 1 ]; then
 			msg="Could not unmount all partitions
