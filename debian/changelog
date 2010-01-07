@@ -1,3 +1,9 @@
+cliinstaller (0.2.7) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 07 Jan 2010 02:18:29 +0100
+
 cliinstaller (0.2.6) unstable; urgency=low
 
   * fixed path for external scripts
@@ -5,7 +11,7 @@ cliinstaller (0.2.6) unstable; urgency=low
   * added dialog to recommends
   * default to text if dialog is not installed
   * default to ext4
-  * dont escape spaces in escape_chars. it results in a wrong password
+  * don't escape spaces in escape_chars. it results in a wrong password
   * remove external scripts. those get installed by fll-installer-common
   * remove external scripts from debian/copyright, debian/install
   * added fll-installer-common as dependency
