@@ -1,9 +1,5 @@
-cliinstaller (0.2.6) UNRELEASED; urgency=low
+cliinstaller (0.2.6) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Nikolas Poniros ]
   * fixed path for external scripts
   * updated cfdisk_wrapper to be the same as in install-gui
   * added dialog to recommends
