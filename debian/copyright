@@ -6,7 +6,7 @@ Upstream Author: Nikolas Poniros <edhunter@sidux.com>
 
 Copyright:
 
-    <Copyright © 2009 Nikolas Poniros>
+    <Copyright © 2009-2010 Nikolas Poniros>
 
 License:
 
@@ -14,7 +14,7 @@ License:
 
 The Debian packaging is:
 
-    Copyright © 2009 Nikolas Poniros <edhunter@sidux.com>
+    Copyright © 2009-2010 Nikolas Poniros <edhunter@sidux.com>
 
 and is licensed under the GPL version 2, 
 see `/usr/share/common-licenses/GPL-2'.

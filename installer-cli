@@ -1,6 +1,6 @@
 #!/bin/sh                                                                   
 #                                                                                 
-# Copyright  (C) 2009 Nikolas Poniros <edhunter@sidux.com                                      
+# Copyright  (C) 2009-2010 Nikolas Poniros <edhunter@sidux.com                                      
 #                          
 # heavily based on install-gui written by
 #	Horst Tritremmel <peter_weber69@gmx.at>                        
@@ -16,14 +16,14 @@
 # GNU General Public License for more details.                                    
 #                                                                                 
 # You should have received a copy of the GNU General Public License               
-# along with this package; if not, write to the Free Software                     
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,                          
+# along with this package; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.                                                             
 #                                                                                 
 # On Debian GNU/Linux systems, the text of the GPL license can be                 
 # found in /usr/share/common-licenses/GPL.                                        
 #                                                                                 
-# version: 0.2.6
+# version: 0.2.7
 #--------------------------------------------------------------------------
 
 #Short description of the script:
@@ -49,7 +49,7 @@ call_help ()
 while getopts vhI: opt
 	do
 		case $opt in
-			v)  echo "Version: 0.2.6"; exit;;
+			v)  echo "Version: 0.2.7"; exit;;
 			I)  interface="$OPTARG";;
 			h)  call_help;;
 		esac
@@ -99,6 +99,8 @@ ROOT_IS_LVM="no"
 PARTITIONS_LIST=$(mktemp /tmp/part_list.XXXXXXXX)
 # I need 2 because I cant use sed -i
 PARTITIONS_LIST_2=$(mktemp /tmp/part_list_2.XXXXXXXX)
+
+SWAP_PART_LIST=$(mktemp /tmp/swap_part_list.XXXXXXXX)
 
 
 if [ -f ${CONFIG_FILE} ]; then
@@ -311,6 +313,60 @@ compare_pass ()
 		done
 }
 
+# Function to make sure that all disks are unmounted before
+# partition program start and before installation start
+# $1 is 1 if config was not written or 2 if config was written
+check_for_mounted_disks ()
+{
+    /usr/share/fll-installer-common/um_all "check"
+
+    before_config_write="$1"
+
+    exit_status=$?
+
+    if [ $exit_status -eq 1 ]; then
+	title="Unmount Partitions"
+	msg="Some partitions are still mounted.
+		You need to unmount them for the installer to continue.
+		
+		Unmount now?"
+	yesno "${title}" "${msg}"
+	if [ $? -eq 0 ]; then
+		/usr/share/fll-installer-common/um_all
+		exit_status=$?
+		if [ $exit_status -eq 1 ]; then
+			if [ $before_config_write -eq 1 ]; then
+			    msg="Could not unmount all partitions
+    
+				Abording.."
+			else
+			    msg="Could not unmount all partitions
+    
+				Abording..
+			      
+				I: If you choose 'no' the configuration file will stay
+				in ${CONFIG_FILE}!"
+			fi
+			error_msg "${msg}" "$before_config_write"
+		else 
+			display_msg "${title}" "Partitions unmounted successfully"
+		fi
+	else
+	    if [ $before_config_write -eq 1 ]; then
+		msg="You chose not to unmount the partitions
+			Abording.."
+	    else
+		msg="You chose not to unmount the partitions
+			Abording..
+      
+			I: If you choose 'no' the configuration file will stay
+			in ${CONFIG_FILE}!"
+	    fi
+	    error_msg "${msg}" "$before_config_write"
+	fi
+    fi
+}
+
 # Function to check if there is a username USERNAME in the home partition
 # chosen by the user. If yes it asks for a new username or removal of the 
 # mount point
@@ -361,20 +417,28 @@ home_exists ()
 format_disk () 
 {
 	title="Format disk"
-	msg="Do you want to run cfdisk to format your hard disk?"
+	msg="Do you want to partition your hard disk?"
 	yesno "${title}" "${msg}" 
 
 	if [ $? -eq 0 ]; then
-		msg="Please choose a disk to format. Available disks are:"
-		partition_list=$(ls -1 /dev/[hs]d?)
-		select_more "${title}" "${msg}" $partition_list
+		msg="Please choose a partitioning program. Available programs are:"
+		programs_list="cfdisk fdisk"
+		SSFT_DEFAULT="${PARTITION_PROG}"
+		select_one "${title}" "${msg}" $programs_list
 		if [ $? -eq 0 ]; then
+		    PARTITION_PROG="${SSFT_RESULT}"
+		    msg="Please choose a disk to partition. Available disks are:"
+		    partition_list=$(ls -1 /dev/[hs]d?)
+		    select_more "${title}" "${msg}" $partition_list
+		    if [ $? -eq 0 ]; then
+			check_for_mounted_disks "1"
 			for disk in ${SSFT_RESULT} ; do
 				/usr/share/fll-installer-common/cfdisk_wrapper ${PARTITION_PROG} ${disk}
 			done
+		    fi
 		fi
 	else
-		msg="You have chosen not to format your hard disk
+		msg="You have chosen not to partition your hard disk
 			If you have not at least one partition on the disk
 			the installer will not be able to complete the installation
 			If you do not have a partition please abord now!
@@ -387,6 +451,7 @@ format_disk ()
 # Function for timezone selection
 set_timezone () 
 {
+	#initialTZ="$(cat /etc/timezone)"
 	title="Timezone selection"
 	msg="Current timezone is: "$(cat /etc/timezone)"
 	
@@ -394,7 +459,16 @@ set_timezone ()
 	yesno "${title}" "${msg}"
 
 	if [ $? -eq 0 ]; then
-		dpkg-reconfigure tzdata
+	    dpkg-reconfigure tzdata
+	    #while [ $(($(TZ=$initialTZ date +%k%M) - $(TZ=$(cat /etc/timezone) date +%k%M))) -gt 0 ]; do
+		#msg="The timezone you chose sets the clock back!
+		#	That will possibly result in a superblock in the future error during boot.
+
+		#	Do you want to select again $initialTZ to avoid such a problem?"
+		#yesno "${title}" "${msg}"
+		#if [ $? -eq 0 ]; then
+		 #   dpkg-reconfigure tzdata
+		#fi
 	else
 		display_msg "${title}" "Keeping current timezone"
 	fi
@@ -463,16 +537,16 @@ custom_root ()
 }
 
 
-escape_chars ()
-{
-	echo "$(echo "$1" | sed -e 's/!/\\!/g' -e 's/\"/\\"/g' -e 's/\$/\\$/g' -e 's/%/\\%/g' \
-			      -e 's/&/\\&/g' -e 's/{/\\{/g' -e 's/(/\\(/g' -e 's/\[/\\[/g' \
-			      -e 's/)/\\)/g' -e 's/]/\\]/g' -e 's/=/\\=/g' -e 's/}/\\}/g' \
-			      -e 's/?/\\?/g' -e 's/\\/\\/g' -e 's/*/\\*/g' -e 's/+/\\+/g' \
-			      -e 's/~/\\~/g' -e "s/'/\\'/g" -e 's/#/\\#/g' -e 's/>/\\>/g' \
-			      -e 's/</\\</g' -e 's/`/\\`/g' -e 's/|/\\|/g' -e 's/;/\\;/g' \
-			      -e 's/-/\\-/g' )"
-}
+#escape_chars ()
+#{
+#	echo "$(echo "$1" | sed -e 's/!/\\!/g' -e 's/\"/\\"/g' -e 's/\$/\\$/g' -e 's/%/\\%/g' \
+#			      -e 's/&/\\&/g' -e 's/{/\\{/g' -e 's/(/\\(/g' -e 's/\[/\\[/g' \
+#			      -e 's/)/\\)/g' -e 's/]/\\]/g' -e 's/=/\\=/g' -e 's/}/\\}/g' \
+#			      -e 's/?/\\?/g' -e 's/\\/\\/g' -e 's/*/\\*/g' -e 's/+/\\+/g' \
+#			      -e 's/~/\\~/g' -e "s/'/\\'/g" -e 's/#/\\#/g' -e 's/>/\\>/g' \
+#			      -e 's/</\\</g' -e 's/`/\\`/g' -e 's/|/\\|/g' -e 's/;/\\;/g' \
+#			      -e 's/-/\\-/g' )"
+#}
 
 # Create a list of available partitions
 # and add those into the temp file
@@ -789,7 +863,12 @@ input_username ()
 
 input_user_pass ()
 {
-	input_pass "Enter a user password. Will not be echoed"
+	msg="Enter a user password. Will not be echoed
+	    
+	    I: Do not use a minus (-) as the first character of the password,
+		a space as the last or a backslash (\) anywhere in the password
+		as those are currently not supported."
+	input_pass "${msg}"
 	if [ $? -eq 0 ]; then
 		USERPASS="${SSFT_RESULT}"
 	else
@@ -809,16 +888,21 @@ input_user_pass ()
 	compare_pass "${USERPASS}" "${pass2}" "user"
 	# If the passwords dont pass the test at the first time then 
 	# USERPASS will be set by length_check which is called in compare_pass
-	pass1="${USERPASS}"
-	pass2="$(escape_chars "$pass1")"
+	#pass1="${USERPASS}"
+	#pass2="$(escape_chars "$pass1")"
 	## create hashed password and escape $
-	USERPASS=$( echo "$pass2" | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
-
+	#USERPASS=$( echo "$pass2" | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
+	USERPASS="$( mkpasswd --method=sha-256 "${USERPASS}" | sed 's/\$/\\$/g' )"
 }
 
 input_root_pass ()
 {
-	input_pass "Enter a root password. Will not be echoed"
+	msg="Enter a root password. Will not be echoed
+	    
+	    I: Do not use a minus (-) as the first character of the password,
+		a space as the last or a backslash (\) anywhere in the password
+		as those are currently not supported."
+	input_pass "${msg}"
 	if [ $? -eq 0 ]; then
 		ROOTPASS="${SSFT_RESULT}"
 	else
@@ -838,10 +922,11 @@ input_root_pass ()
 	compare_pass "${ROOTPASS}" "${pass2}" "root"
 	# If the passwords dont pass the test at the first time then 
 	# ROOTPASS will be set by length_check which is called in compare_pass
-	pass1="${ROOTPASS}"
-	pass2="$(escape_chars "$pass1")"
+	#pass1="${ROOTPASS}"
+	#pass2="$(escape_chars "$pass1")"
 	## create hashed password and escape $
-	ROOTPASS=$( echo "$pass2" | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
+	#ROOTPASS=$( echo "$pass2" | mkpasswd --method=sha-256 -s | sed  's/\$/\\$/g' )
+	ROOTPASS="$( mkpasswd --method=sha-256 "${ROOTPASS}" | sed 's/\$/\\$/g' )"
 }
 
 input_hostname () 
@@ -1082,9 +1167,10 @@ ignore_disk_space
 auto_detect_swap
 
 if [ "${AUTO_SWAP}" = "no" ]; then
+	cut -d" " -f1 /proc/swaps | grep -v "Filename" >> ${SWAP_PART_LIST}
 	select_swap
 else
-	SWAP_CHOICES="$(cut -d" " -f1 /proc/swaps | grep -v "Filename" | tr '\n' ' ' | sed 's/ $//g')"
+	SWAP_LIST="$(cut -d" " -f1 /proc/swaps | grep -v "Filename" | tr '\n' ' ' | sed 's/ $//g')"
 fi
 
 input_real_name
@@ -1122,39 +1208,7 @@ display_msg "cli-installer" "Finished creating configuration file"
 rm -f ${PARTITIONS_LIST}
 rm -f ${PARTITIONS_LIST_2}
 
-### CODE TO CHECK IF THERE ARE PARTITIONS STILL MOUNTED
-/usr/share/fll-installer-common/um_all "check"
-exit_status=$?
-if [ $exit_status -eq 1 ]; then
-	title="Unmount Partitions"
-	msg="Some partitions are still mounted.
-		You need to unmount them for the installer to continue.
-		
-		Unmount now?"
-	yesno "${title}" "${msg}"
-	if [ $? -eq 0 ]; then
-		/usr/share/fll-installer-common/um_all
-		exit_status=$?
-		if [ $exit_status -eq 1 ]; then
-			msg="Could not unmount all partitions
-
-				Abording..
-			      
-				I: If you choose 'no' the configuration file will stay
-				in ${CONFIG_FILE}!"
-			error_msg "${msg}" "2"
-		else 
-			display_msg "${title}" "Partitions unmounted successfully"
-		fi
-	else
-		msg="You chose not to unmount the partitions
-			Abording..
-      
-			I: If you choose 'no' the configuration file will stay
-			in ${CONFIG_FILE}!"
-		error_msg "${msg}" "2"
-	fi
-fi
+check_for_mounted_disks "2"
 
 # restore stderr and close file descriptor 3 (only if the interface was dialog)
 if [ $SSFT_FRONTEND = "dialog" ]; then
