@@ -1,7 +1,4 @@
-cliinstaller (0.2.7) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+cliinstaller (0.2.7) unstable; urgency=low
 
   [ Nikolas Poniros ]
   * bump standards to 3.8.4. No changes needed
@@ -17,9 +14,12 @@ cliinstaller (0.2.7) UNRELEASED; urgency=low
   * comment out escape_chars. It is not needed as it seems
   * add warning for unsupported characters in the password
   * add code to warn the user about possible superblock in the
-  	future during boot. Leave commented out for now.
+    future during boot. Leave commented out for now.
 
- -- Nikolas Poniros <edhunter@sidux.com>  Mon, 05 Apr 2010 03:29:12 +0200
+  [ Stefan Lippers-Hollmann ]
+  * switch to dpkg-source 3.0 (native) format.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 06 Apr 2010 00:29:04 +0200
 
 cliinstaller (0.2.6) unstable; urgency=low
 
