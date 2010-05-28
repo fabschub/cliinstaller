@@ -29,8 +29,8 @@
 #Short description of the script:
 #The script creates the config file ($HOME/.sidconfig) needed by the fll-installer
 #and then calls the fll-installer to install sidux using said config file. 
-#Exit codes are: 0 if successful, 1 if user abords before the config file is written
-#2 if user abords after config file is written (whenever a user presses OK at an error message
+#Exit codes are: 0 if successful, 1 if user aborts before the config file is written
+#2 if user aborts after config file is written (whenever a user presses OK at an error message
 #it is considered as a user abort even if he has no other choice)
 
 call_help ()
@@ -338,11 +338,11 @@ check_for_mounted_disks ()
 			if [ $before_config_write -eq 1 ]; then
 			    msg="Could not unmount all partitions
     
-				Abording.."
+				Aborting.."
 			else
 			    msg="Could not unmount all partitions
     
-				Abording..
+				Aborting..
 			      
 				I: If you choose 'no' the configuration file will stay
 				in ${CONFIG_FILE}!"
@@ -354,10 +354,10 @@ check_for_mounted_disks ()
 	else
 	    if [ $before_config_write -eq 1 ]; then
 		msg="You chose not to unmount the partitions
-			Abording.."
+			Aborting.."
 	    else
 		msg="You chose not to unmount the partitions
-			Abording..
+			Aborting..
       
 			I: If you choose 'no' the configuration file will stay
 			in ${CONFIG_FILE}!"
@@ -392,7 +392,7 @@ home_exists ()
 				fi
 				break
 			elif [ $exit_status -eq 1 ]; then
-				error_msg "Could not mount partition. Abording" "1"
+				error_msg "Could not mount partition. Aborting" "1"
 			# exit_status of check_existing_home is 2
 			else
 				#needs some more info
@@ -428,7 +428,7 @@ format_disk ()
 		if [ $? -eq 0 ]; then
 		    PARTITION_PROG="${SSFT_RESULT}"
 		    msg="Please choose a disk to partition. Available disks are:"
-		    partition_list=$(ls -1 /dev/[hs]d?)
+		    partition_list=$(/usr/share/fll-installer-common/disk -d 2>/dev/null)
 		    select_more "${title}" "${msg}" $partition_list
 		    if [ $? -eq 0 ]; then
 			check_for_mounted_disks "1"
@@ -441,9 +441,9 @@ format_disk ()
 		msg="You have chosen not to partition your hard disk
 			If you have not at least one partition on the disk
 			the installer will not be able to complete the installation
-			If you do not have a partition please abord now!
+			If you do not have a partition please abort now!
 		
-			Press ctrl+C to abord or ENTER to continue"
+			Press ctrl+C to abort or ENTER to continue"
 		display_msg "${title}" "${msg}"
 	fi
 }
