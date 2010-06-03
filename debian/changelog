@@ -1,11 +1,7 @@
-cliinstaller (0.2.8) UNRELEASED; urgency=low
+cliinstaller (0.2.8) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Nikolas Poniros ]
-  *	Change the way disks get detected. Use disk script
-  *	Fixed some typos. Thanks bfree.
+  * Change the way disks get detected. Use disk script.
+  * Fixed some typos. Thanks bfree.
 
  -- Nikolas Poniros <edhunter@sidux.com>  Fri, 28 May 2010 10:44:07 +0200
 
