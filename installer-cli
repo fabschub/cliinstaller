@@ -23,7 +23,7 @@
 # On Debian GNU/Linux systems, the text of the GPL license can be                 
 # found in /usr/share/common-licenses/GPL.                                        
 #                                                                                 
-# version: 0.2.7
+# version: 0.2.9
 #--------------------------------------------------------------------------
 
 #Short description of the script:
@@ -49,7 +49,7 @@ call_help ()
 while getopts vhI: opt
 	do
 		case $opt in
-			v)  echo "Version: 0.2.7"; exit;;
+			v)  echo "Version: 0.2.9"; exit;;
 			I)  interface="$OPTARG";;
 			h)  call_help;;
 		esac
@@ -944,7 +944,7 @@ input_hostname ()
 	while [ ! $(echo "${HOST_NAME}" | grep "^[${HOSTNAME_ALLOWED_CHARS}][${HOSTNAME_ALLOWED_CHARS}${HOSTNAME_ALLOWED_CHAR_OTHERS}]*$") ]
       		do
 			title="Input hostname"
-			msg="Username contains characters which are not allowed!
+			msg="Hostname contains characters which are not allowed!
 				Allowed characters are:
 
 				${HOSTNAME_ALLOWED_CHARS}

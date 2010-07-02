@@ -1,8 +1,12 @@
 cliinstaller (0.2.9) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 03 Jun 2010 23:16:24 +0200
+  [ Nikolas Poniros ]
+  * fixed minor typo. thanks fabschub 
+
+ -- Nikolas Poniros <edhunter@sidux.com>  Fri, 02 Jul 2010 18:20:45 +0200
 
 cliinstaller (0.2.8) unstable; urgency=low
 
