@@ -1,6 +1,12 @@
+cliinstaller (0.2.12) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 05 Aug 2010 17:38:26 +0200
+
 cliinstaller (0.2.11) unstable; urgency=low
 
-  * debian/control: emphasize that this packages is live-only.
+  * debian/control: emphasize that this package is live-only.
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 05 Aug 2010 17:37:22 +0200
 
