@@ -1,3 +1,9 @@
+cliinstaller (0.2.11) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 03 Aug 2010 15:42:15 +0200
+
 cliinstaller (0.2.10) unstable; urgency=low
 
   * bump standards version to 3.9.1, no changes necessary.
