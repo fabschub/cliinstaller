@@ -1,6 +1,6 @@
 #!/bin/sh                                                                   
 #                                                                                 
-# Copyright  (C) 2009-2010 Nikolas Poniros <edhunter@sidux.com                                      
+# Copyright  (C) 2009-2010 Nikolas Poniros <edhunter@aptosid.com                                      
 #                          
 # heavily based on install-gui written by
 #	Horst Tritremmel <peter_weber69@gmx.at>                        
@@ -28,7 +28,7 @@
 
 #Short description of the script:
 #The script creates the config file ($HOME/.sidconfig) needed by the fll-installer
-#and then calls the fll-installer to install sidux using said config file. 
+#and then calls the fll-installer to install aptosid using said config file. 
 #Exit codes are: 0 if successful, 1 if user aborts before the config file is written
 #2 if user aborts after config file is written (whenever a user presses OK at an error message
 #it is considered as a user abort even if he has no other choice)
@@ -137,7 +137,7 @@ USERNAME=""
 USERPASS=""
 ROOTPASS=""
 # not using HOSTNAME as its an evn variable
-HOST_NAME="siduxbox"
+HOST_NAME="aptosidbox"
 SERVICES_LIST=""
 BOOT_LOADER="grub"
 BOOT_DISK="no"
@@ -589,7 +589,7 @@ select_fs ()
 choose_root () 
 {
 	title="Install Partition"
-	msg="Choose a partition to install sidux onto.
+	msg="Choose a partition to install aptosid onto.
 		Available partitions are:"
 	select_one "${title}" "${msg}" $(cat ${PARTITIONS_LIST} | cut -d "," -f1) "custom"
 
@@ -754,7 +754,7 @@ set_mount_points ()
 ignore_disk_space () 
 {
 	title="Check for space"
-	msg="Do you want the program NOT to check if there is enough space to install sidux?
+	msg="Do you want the program NOT to check if there is enough space to install aptosid?
 		If you don't know what this means please choose 'no'"
 	yesno "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
@@ -1047,7 +1047,7 @@ write_config ()
 
 	echo >> ${CONFIG_FILE}
 
-	echo "# Here the sidux-System will be installed" >> ${CONFIG_FILE}
+	echo "# Here the aptosid-System will be installed" >> ${CONFIG_FILE}
 	echo "# This value will be checked by function module_hd_check" >> ${CONFIG_FILE}
 	echo "HD_CHOICE='${ROOT_PARTITION}'" >> ${CONFIG_FILE}
 
@@ -1058,7 +1058,7 @@ write_config ()
 
 	echo >> ${CONFIG_FILE}
 
-	echo "# If set to yes, the program will NOT check if there is enough space to install sidux on the selected partition(s). Use at your own risk! Useful for example with HD_MAP if you only have a small root partition." >> ${CONFIG_FILE}
+	echo "# If set to yes, the program will NOT check if there is enough space to install aptosid on the selected partition(s). Use at your own risk! Useful for example with HD_MAP if you only have a small root partition." >> ${CONFIG_FILE}
 	echo "# Possible are: yes|no" >> ${CONFIG_FILE}
 	echo "# Default value is: no" >> ${CONFIG_FILE}
 	echo "HD_IGNORECHECK='${IGNORE_DISK_SPACE}'" >> ${CONFIG_FILE}
@@ -1073,7 +1073,7 @@ write_config ()
 
 	echo >> ${CONFIG_FILE}
 
-	echo "# The swap partitions to be used by the installed sidux." >> ${CONFIG_FILE}
+	echo "# The swap partitions to be used by the installed aptosid." >> ${CONFIG_FILE}
 	echo "# This value will be checked by function module_swap_check (install-gui)" >> ${CONFIG_FILE}
 	echo "SWAP_CHOICES='${SWAP_LIST}'" >> ${CONFIG_FILE}
 

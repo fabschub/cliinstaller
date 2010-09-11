@@ -15,16 +15,16 @@ Depends: ${shlibs:Depends},
  ${misc:Depends},
  fll-installer (>= 0.2.1),
  fll-installer-common (>= 0.8.10),
- sidux-scripts (>= 0.2.6),
+ aptosid-scripts (>= 0.2.6),
  fll-live-initscripts (>= 2.0.64),
  psmisc,
  ssft,
  udev (>= 0.146),
  util-linux (>= 2.16.1)
 Recommends: dialog
-Description: Cli installer for sidux
+Description: Cli installer for aptosid
  Minimal textmode GUI to create the config file needed by fll-installer
- for installing a sidux/ fullstory system to disk for use on X-less or
+ for installing a aptosid/ fullstory system to disk for use on X-less or
  GTK2-less systems.
  .
  The installer can be started through /usr/sbin/installer-cli.
