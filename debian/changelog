@@ -1,3 +1,9 @@
+cliinstaller (0.3.1) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 29 Aug 2010 04:14:14 +0200
+
 cliinstaller (0.3.0) unstable; urgency=low
 
   * adapt for aptosid
