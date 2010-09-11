@@ -28,3 +28,6 @@ Description: Cli installer for sidux
  GTK2-less systems.
  .
  The installer can be started through /usr/sbin/installer-cli.
+ .
+ This is a FULLSTORY live-only package and should not be installed to an
+ ordinary system.
