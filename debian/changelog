@@ -1,8 +1,8 @@
-cliinstaller (0.2.12) UNRELEASED; urgency=low
+cliinstaller (0.2.12) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * switch to compat level 8.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 05 Aug 2010 17:38:26 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 08 Aug 2010 03:29:34 +0200
 
 cliinstaller (0.2.11) unstable; urgency=low
 
