@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Nikolas Poniros <edhunter@sidux.com>
 Uploaders: Stefan Lippers-Hollmann <s.l-h@gmx.de>
 Build-Depends: debhelper (>= 7)
-Standards-Version: 3.8.4
+Standards-Version: 3.9.0
 Homepage: https://noc.sidux.com/cli-installer
 Vcs-Svn: svn://svn.berlios.de/fullstory/cliinstaller/trunk
 Vcs-Browser: http://svn.berlios.de/wsvn/fullstory/cliinstaller/trunk/
@@ -23,5 +23,8 @@ Depends: ${shlibs:Depends},
  util-linux (>= 2.16.1)
 Recommends: dialog
 Description: Cli installer for sidux
- A script to create the config file needed by
- fll-installer
+ Minimal textmode GUI to create the config file needed by fll-installer
+ for installing a sidux/ fullstory system to disk for use on X-less or
+ GTK2-less systems.
+ .
+ The installer can be started through /usr/sbin/installer-cli.

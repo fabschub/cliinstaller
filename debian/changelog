@@ -1,12 +1,13 @@
-cliinstaller (0.2.9) UNRELEASED; urgency=low
-
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
+cliinstaller (0.2.9) unstable; urgency=low
 
   [ Nikolas Poniros ]
   * fixed minor typo. thanks fabschub 
 
- -- Nikolas Poniros <edhunter@sidux.com>  Fri, 02 Jul 2010 18:20:45 +0200
+  [ Stefan Lippers-Hollmann ]
+  * bump standards version to 3.9.0, no changes necessary.
+  * elaborate long description a bit further, to make lintian happy.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 22 Jul 2010 01:21:43 +0200
 
 cliinstaller (0.2.8) unstable; urgency=low
 
