@@ -1,0 +1,5 @@
+This is a fork of aptosid's (www.aptosid.net) command-line installer.
+
+You can find the original source at http://developer.berlios.de/projects/fullstory/
+
+I will try to add translation support (DE) via gettext and maybe other more or less useful things just for fun.
