@@ -1,0 +1,616 @@
+# German translations for installer-cli package.
+# Copyright (C) 2010 THE INSTALLER-CLI'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the installer-cli package.
+# Fabian Schubert <fabschub@gmx.de>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.2.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-24 21:22+0200\n"
+"PO-Revision-Date: 2010-06-29 16:35+0200\n"
+"Last-Translator: Fabian Schubert <fabschub@gmx.de>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: installer-cli:45
+msgid ""
+"installer-cli - Install aptosid live cd onto harddik\n"
+"Usage: installer-cli -h print this help message\n"
+"                     -I [interface]\n"
+"                        select an interface to use with ssft.\n"
+"                        options are: text , dialog\n"
+"                        Default is dialog if installed\n"
+"                     -v print program version"
+msgstr ""
+"installer-cli - Installiert aptosid auf die Festplatte\n"
+"Benutzung: installer-cli -h diese Hilfe ausgeben\n"
+"                         -I [interface]\n"
+"                            Interface für ssft wählen.\n"
+"                            Optionen sind: text , dialog\n"
+"                            Standard ist, wenn installiert, Dialog\n"
+"                         -v Programmversion ausgeben"
+
+#: installer-cli:63
+#, sh-format
+msgid "Invalid argument for option -I: $OPTARG"
+msgstr "Ungültiges Argument für Option -I: $OPTARG"
+
+#: installer-cli:66
+#, sh-format
+msgid "Version: $VERSION"
+msgstr "Version: $VERSION"
+
+#: installer-cli:67
+#, sh-format
+msgid "Invalid option: -$OPTARG"
+msgstr "Ungültige Option: -$OPTARG"
+
+#: installer-cli:68
+#, sh-format
+msgid "Option -$OPTARG requires an argument."
+msgstr "Option -$OPTARG benötigt ein Argument."
+
+#: installer-cli:73
+msgid "E: You need to be root to run the script"
+msgstr "E: Das Script muss mit Rootrechten ausgeführt werden"
+
+#: installer-cli:83
+msgid "dialog is not installed"
+msgstr "dialog ist nicht installiert"
+
+#: installer-cli:84
+msgid "using text instead"
+msgstr "Stattdessen wird text verwendet"
+
+#: installer-cli:88
+msgid "Please install ssft"
+msgstr "Bitte ssft installieren"
+
+#: installer-cli:101
+msgid "W: it seems that another installer-cli instance is already running."
+msgstr ""
+
+#: installer-cli:102
+msgid ""
+"If this is not the case, please remove the following lock file and start the "
+"script again:"
+msgstr ""
+
+#: installer-cli:108
+msgid "E: The script seems to be running by another instance"
+msgstr "E: Das Script scheint bereits in einer anderen Instanz zu laufen"
+
+#: installer-cli:141
+#, sh-format
+msgid ""
+"E: Config file '${CONFIG_FILE}' exists already. Please remove it and run the "
+"script again"
+msgstr ""
+"E: Die Konfigurationsdatei '${CONFIG_FILE}' existiert bereits. Bitte "
+"entfernen und Script erneut starten"
+
+#: installer-cli:207
+msgid "ERROR"
+msgstr "FEHLER"
+
+#: installer-cli:209
+#, sh-format
+msgid "${ERROR_LOG} might contain more information"
+msgstr "${ERROR_LOG} könnte mehr Informationen enthalten"
+
+#: installer-cli:257
+msgid "Input Password"
+msgstr "Passworteingabe"
+
+#: installer-cli:284
+#, sh-format
+msgid ""
+"The password is too short!\n"
+"It needs to be at least 6 characters long\n"
+"\n"
+"Enter a $type password. Will not be echoed"
+msgstr ""
+"Das Passwort ist zu kurz!\n"
+"Es muss mindestens 6 Zeichen lang sein\n"
+"\n"
+"$type Passwort eingeben. Es wird nicht angezeigt"
+
+#: installer-cli:292
+msgid "Can not continue without a password"
+msgstr "Kann nicht ohne ein Passwort fortfahren."
+
+#: installer-cli:297
+#, sh-format
+msgid ""
+"The ${type} is too short!\n"
+"It needs to be at least ${num} characters long\n"
+"\n"
+"Enter ${type} again."
+msgstr ""
+"${type} ist zu kurz!\n"
+"Es muss mindestens ${num} Zeichen lang sein\n"
+"\n"
+"${type} erneut eingeben. Es wird nicht angezeigt"
+
+#: installer-cli:305
+#, sh-format
+msgid "Can not continue without a ${type}"
+msgstr "Kann nicht ohne einen ${type} fortfahren."
+
+#: installer-cli:329
+#, sh-format
+msgid ""
+"The passwords do not match\n"
+"Enter a ${type} password. Will not be echoed"
+msgstr ""
+"Die Passwörter stimmen nicht überein\n"
+"${type} Passwort eingeben. Es wird nicht ausgegeben"
+
+#: installer-cli:335 installer-cli:345
+#, sh-format
+msgid "Can not continue without a ${type} password"
+msgstr "Kann nicht ohne ein ${type} Passwort fortfahren."
+
+#: installer-cli:340 installer-cli:915 installer-cli:949
+msgid "Please enter the password again. Will not be echoed"
+msgstr "Bitte das Passwort nochmals eingeben. Es wird nicht angezeigt."
+
+#: installer-cli:362
+msgid "Unmount Partitions"
+msgstr "Partitionen aushängen"
+
+#: installer-cli:363
+msgid ""
+"Some partitions are still mounted.\n"
+"You need to unmount them for the installer to continue.\n"
+"\n"
+"Unmount now?"
+msgstr ""
+"Einige Partitionen sind noch eingehängt.\n"
+"Diese müssen ausgehängt werden, um mit der Installation fortzufahren.\n"
+"\n"
+"Jetzt aushängen?"
+
+#: installer-cli:373
+msgid ""
+"Could not unmount all partitions\n"
+" \n"
+"Aborting.."
+msgstr ""
+"Nicht alle Partitionen konnten ausgehängt werden.\n"
+"\n"
+"Abbruch.."
+
+#: installer-cli:377
+#, sh-format
+msgid ""
+"Could not unmount all partitions\n"
+"    \n"
+"Aborting..\n"
+"  \n"
+"I: If you choose 'no' the configuration file will stay\n"
+"in ${CONFIG_FILE}!"
+msgstr ""
+"Nicht alle Partitionen konnten ausgehängt werden.i\n"
+"\n"
+"I: Wenn 'nein' gewählt wird, dann bleibt die Konfiguration in\n"
+"${CONFIG_FILE} erhalten!"
+
+#: installer-cli:386
+msgid "Partitions unmounted successfully"
+msgstr "Partitionen wurden erfolgreich ausgehängt"
+
+#: installer-cli:390
+msgid ""
+"You chose not to unmount the partitions\n"
+"Aborting.."
+msgstr ""
+"Partitionen sollen nicht ausgehängt werden\n"
+"Abbruch.."
+
+#: installer-cli:393
+#, sh-format
+msgid ""
+"You chose not to unmount the partitions\n"
+"Aborting..\n"
+"\n"
+"I: If you choose 'no' the configuration file will stay\n"
+"in ${CONFIG_FILE}!"
+msgstr ""
+"Partitionen sollen nicht ausgehängt werden\n"
+"Abbruch..\n"
+"\n"
+"I: Wenn 'nein' gewählt wird, dann bleibt die Konfiguration in\n"
+"${CONFIG_FILE} erhalten!"
+
+#: installer-cli:429
+msgid "Could not mount partition. Aborting"
+msgstr "Partition kann nicht eingehängt werden. Abbruch"
+
+#: installer-cli:433 installer-cli:436 installer-cli:444
+msgid "Check home"
+msgstr "Home checken"
+
+#: installer-cli:433
+msgid "Username exists"
+msgstr "Benutzername existiert"
+
+#: installer-cli:434
+msgid ""
+"Username already exists on the partition you selected as home\n"
+"Do you want to choose a new username or remove the mount point?"
+msgstr ""
+"Der Benutzrname existiert bereits auf der für das Heimverzeichnis "
+"ausgewählten Partition\n"
+"Soll der gewählte Benutzername geändert oder der Einhängepunkt entfernt "
+"werden?"
+
+#: installer-cli:444
+msgid "Cancelling.."
+msgstr "Abbruch.."
+
+#: installer-cli:453
+msgid "Format disk"
+msgstr "Festplatte formatieren"
+
+#: installer-cli:454
+msgid "Do you want to partition your hard disk?"
+msgstr "Soll die Festplatte formatiert werden?"
+
+#: installer-cli:458
+msgid "Please choose a partitioning program. Available programs are:"
+msgstr "Programm für das Partitionieren wählen. Verfügbare Programme:"
+
+#: installer-cli:464
+msgid "Please choose a disk to partition. Available disks are:"
+msgstr "Festplatte zum Partitionieren wählen. Verfügbare Festplatten:"
+
+#: installer-cli:475
+msgid ""
+"You have chosen not to partition your hard disk\n"
+"If you have not at least one partition on the disk\n"
+"the installer will not be able to complete the installation\n"
+"If you do not have a partition please abort now!\n"
+"\n"
+"Press ctrl+C to abort or ENTER to continue"
+msgstr ""
+"Es soll keine Festplatte partitioniert werden.\n"
+"Steht nicht wenigstens eine Partition verfügbar,\n"
+"so wird die Installation scheitern.\n"
+"Ist keine Partition vorhanden, sollte jetzt abgebrochen werden!\n"
+"\n"
+"Strg+C zum Abbrechen oder ENTER zum Fortfahren drücken"
+
+#: installer-cli:489
+msgid "Timezone selection"
+msgstr "Zeitzonenwahl"
+
+#: installer-cli:490
+#, sh-format
+msgid ""
+"Current timezone is: $initialTZ\n"
+"\n"
+"Do you want to change the timezone?"
+msgstr ""
+"Aktuelle Zeitzone: $initialTZ\n"
+"\n"
+"Zeitzone ändern?"
+
+#: installer-cli:507
+msgid "Keeping current timezone"
+msgstr "Aktuelle Zeitzone wird beibehalten"
+
+#: installer-cli:517
+msgid "Partitioning"
+msgstr "Partitionierung"
+
+#: installer-cli:518
+msgid ""
+"No partitions were detected by the installer. Do you want to manually set a "
+"partion?"
+msgstr ""
+"Es wurde keine Partition gefunden. Soll eine Partition manuell angelegt "
+"werden?"
+
+#: installer-cli:521
+msgid "Please input a root partition."
+msgstr "Bitte eine Rootpartition angeben."
+
+#: installer-cli:522 installer-cli:547
+msgid "Root partition"
+msgstr "Rootpartition"
+
+#: installer-cli:529
+msgid ""
+"The partition you entered is not a block device. Please enter a root "
+"partition."
+msgstr ""
+
+#: installer-cli:538
+msgid "You have not entered a valid partition. Please enter a root partition"
+msgstr ""
+
+#: installer-cli:551 installer-cli:567
+msgid "Can not continue without root partition"
+msgstr "Kann nicht ohne eine Rootpartition fortfahren"
+
+#: installer-cli:570
+msgid "Can not continue without partition"
+msgstr "Kann nicht ohne eine Partition fortfahren"
+
+#: installer-cli:596
+msgid "Format hard disk"
+msgstr "Festplatte formatieren"
+
+#: installer-cli:597
+msgid ""
+"Do you want the installer to format your\n"
+"root partition?"
+msgstr ""
+"Soll das Installationsprogramm die\n"
+"Rootpartition formatieren?"
+
+#: installer-cli:610
+msgid "Filesystem selection"
+msgstr "Dateisystemauswahl"
+
+#: installer-cli:611
+msgid "Select a file system for your root partition"
+msgstr "Dateisystem für die Rootpartition wählen"
+
+#: installer-cli:618
+#, sh-format
+msgid "Could not set filesystem. Using ${FILESYSTEM}"
+msgstr "Dateisystem kann nicht gesetzt werden. Benutze ${FILESYSTEM}"
+
+#: installer-cli:626
+msgid "Install Partition"
+msgstr "Installiere Partition"
+
+#: installer-cli:627
+msgid ""
+"Choose a partition to install aptosid onto.\n"
+"  Available partitions are:"
+msgstr ""
+"Partition, auf der aptosid installiert werden soll, auswählen.\n"
+"  Verfügbare Partitionen:"
+
+#: installer-cli:665
+msgid "Set mount points"
+msgstr "Einhängepunkte setzen"
+
+#: installer-cli:666
+msgid ""
+"Do you want to set mount points for other partitions?\n"
+"\t\n"
+"W: The partitions need to be already formated\n"
+"\t\n"
+"I: The root partition is already set and you should not\n"
+"   set it again"
+msgstr ""
+"Sollen Einhängepunkte für andere Partitionen gesetzt werden?\n"
+"\t\n"
+"\t\tW: Die Partitionen müssen bereits formatiert sein\n"
+"\t\n"
+"I: Die Rootpartition wurde bereits gesetzt und muss nicht\n"
+"   erneut gesetzt werden"
+
+#: installer-cli:679
+msgid ""
+"Choose a partition to set its mount point.\n"
+"Available partitions are:"
+msgstr ""
+"Partition wählen, um dessen Einhängepunkt zu setzen\n"
+"Verfügbare Partitionen:"
+
+#: installer-cli:697
+#, sh-format
+msgid "Choose a mount point for ${partition}"
+msgstr "Einhängepunkt für {partition} wählen"
+
+#: installer-cli:777
+msgid "Invalid option"
+msgstr "Ungültige Option"
+
+#: installer-cli:784
+msgid "Finished setting mount points"
+msgstr "Einhängepunkte wurden gesetzt"
+
+#: installer-cli:791
+msgid "Check for space"
+msgstr "Speicherplatz checken"
+
+#: installer-cli:792
+msgid ""
+"Do you want the program NOT to check if there is enough space to install "
+"aptosid?\n"
+"If you don't know what this means please choose 'no'"
+msgstr ""
+"Soll der Plattenspeicher NICHT nach ausreichen Speicherplatz für die "
+"Installation von aptosid gecheckt werden?\n"
+"Bei Unwissenheit bitte 'no' wählen"
+
+#: installer-cli:802
+msgid "Swap autodetect"
+msgstr "Swap automatisch erkennen"
+
+#: installer-cli:803
+msgid "Do you want the installer to autodetect swap?"
+msgstr "Soll Swap automatisch erkannt werden?"
+
+#: installer-cli:813 installer-cli:822
+msgid "Select swap"
+msgstr "Swapauswahl"
+
+#: installer-cli:814
+msgid "Select the partitions you want to be used as swap by the installer"
+msgstr "Partition für Swap wählen"
+
+#: installer-cli:823
+msgid "You have no swap partitions. Nothing to select"
+msgstr "Es ist keine Swappartition vorhanden. Nichts zur Auswahl"
+
+#: installer-cli:830 installer-cli:845
+msgid "Input Real Name"
+msgstr "Realer Name"
+
+#: installer-cli:831
+msgid "Please enter your real name"
+msgstr "Bitte realen Namen eingeben"
+
+#: installer-cli:846
+#, sh-format
+msgid ""
+"Your input contains characters which are not allowed\n"
+"Characters which are not allowed are:\n"
+"\n"
+"${NAME_NAME_NOT_ALLOWED_CHARS}\n"
+"\n"
+"Please enter again your real name"
+msgstr ""
+"Die Eingabe enthält nicht erlaubte Zeichen\n"
+"Folgende Zeichen sind nicht erlaubt:\n"
+"\n"
+"${NAME_NAME_NOT_ALLOWED_CHARS}\n"
+"\n"
+"Realen Namen bitte erneut eingeben"
+
+#: installer-cli:867 installer-cli:879
+msgid "Input username"
+msgstr "Benutzername"
+
+#: installer-cli:868
+msgid "Please input your username"
+msgstr "Bitte gewünschten Benutzernamen eingeben"
+
+#: installer-cli:880
+#, sh-format
+msgid ""
+"Username contains characters which are not allowed\n"
+"Allowed characters are:\n"
+"\n"
+"${USERNAME_ALLOWED_CHARS}\n"
+"\n"
+"Please enter username"
+msgstr ""
+"Der Benutzername enthält nicht erlaubte Zeichen\n"
+"Erlaubte Zeichen sind:\n"
+"\n"
+"${USERNAME_ALLOWED_CHARS}\n"
+"\n"
+"Bitte Benutzernamen eingeben"
+
+#: installer-cli:901
+#, sh-format
+msgid ""
+"Enter a password for user '${USERNAME}'. Will not be echoed\n"
+"\n"
+"I: Do not use a minus (-) as the first character of the password,\n"
+"   a space as the last or a backslash (\\) anywhere in the password\n"
+"   as those are currently not supported."
+msgstr ""
+"Passwort für Benutzer '${USERNAME}' eingeben. Es wird nicht angezeigt\n"
+"\n"
+"I: Es sollte kein Minus (-) als erstes Zeichen des Passworts,\n"
+"   kein Leerzeichen als letztes oder ein Backslash (\\) irgendwo\n"
+"   im Passwort benutzt werden, da dies derzeit nicht unterstützt\n"
+"   wird."
+
+#: installer-cli:910 installer-cli:920
+msgid "Can not continue without a user password"
+msgstr "Kann nicht ohne ein Benutzerpasswort fortfahren."
+
+#: installer-cli:935
+msgid ""
+"Enter a root password. Will not be echoed\n"
+"\n"
+"I: Do not use a minus (-) as the first character of the password,\n"
+"   a space as the last or a backslash (\\) anywhere in the password\n"
+"   as those are currently not supported."
+msgstr ""
+"Rootpasswort eingeben. Es wird nicht angezeigt.\n"
+"\n"
+"I: Es sollte kein Minus (-) als erstes Zeichen des Passworts,\n"
+"   kein Leerzeichen als letztes oder ein Backslash (\\) irgendwo\n"
+"   Passwort benutzt werden, da dies derzeit nicht unterstützt wird."
+
+#: installer-cli:944 installer-cli:954
+msgid "Can not continue without a root password"
+msgstr "Das Fortfahren ohne Rootpasswort ist nicht möglich."
+
+#: installer-cli:969 installer-cli:981
+msgid "Input hostname"
+msgstr "Rechnernameneingabe"
+
+#: installer-cli:970
+msgid "Please input hostname"
+msgstr "Bitte Rechnernamen eingeben"
+
+#: installer-cli:982
+#, sh-format
+msgid ""
+"Hostname contains characters which are not allowed!\n"
+"Allowed characters are:\n"
+"\n"
+"${HOSTNAME_ALLOWED_CHARS}\n"
+"  \n"
+"${HOSTNAME_ALLOWED_CHAR_OTHERS}\n"
+"\n"
+"W: The hostname must start with a letter!\n"
+"\n"
+"Please enter hostname"
+msgstr ""
+"Der Benutzername enthält nicht erlaubte Zeichen!\n"
+"Erlaubte Zeichen sind:\n"
+"\n"
+"${HOSTNAME_ALLOWED_CHARS}\n"
+"  \n"
+"${HOSTNAME_ALLOWED_CHAR_OTHERS}\n"
+"\n"
+"W: Der Rechnername muss mit einem Buchstaben beginnen!\n"
+"\n"
+"Bitte Rechnernamen eingeben"
+
+#: installer-cli:1006
+msgid "Services"
+msgstr "Dienste"
+
+#: installer-cli:1007
+msgid "Select the services you want to start on boot"
+msgstr "Beim Systemstart zu startende Dienste wählen"
+
+#: installer-cli:1034
+msgid "Bootloader"
+msgstr "Bootloader"
+
+#: installer-cli:1035
+msgid "Where do you want the boot-loader to be installed?"
+msgstr "Wohin soll der Bootloader installiert werden?"
+
+#: installer-cli:1052
+msgid "Automount"
+msgstr "Automatisch einhängen"
+
+#: installer-cli:1053
+msgid "Do you want the partitions to be automounted on boot?"
+msgstr "Sollen die Partitionen beim Systemstart automatisch eingehängt weden?"
+
+#: installer-cli:1239
+msgid "Finished creating configuration file"
+msgstr "Konfigurationsdatei wurde erstellt"
+
+#: installer-cli:1255
+msgid "Call Installer"
+msgstr "Installation starten"
+
+#: installer-cli:1262
+#, sh-format
+msgid ""
+"Some error occured. Looking at ${ERROR_LOG} might provide you with answers"
+msgstr ""
+"Es ist ein Fehler aufgetreten. ${ERROR_LOG} könnte bei der Problemlösung "
+"hilfen"

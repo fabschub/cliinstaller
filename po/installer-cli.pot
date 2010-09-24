@@ -1,0 +1,515 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-24 21:53+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: installer-cli:45
+msgid ""
+"installer-cli - Install aptosid live cd onto harddik\n"
+"Usage: installer-cli -h print this help message\n"
+"                     -I [interface]\n"
+"                        select an interface to use with ssft.\n"
+"                        options are: text , dialog\n"
+"                        Default is dialog if installed\n"
+"                     -v print program version"
+msgstr ""
+
+#: installer-cli:63
+#, sh-format
+msgid "Invalid argument for option -I: $OPTARG"
+msgstr ""
+
+#: installer-cli:66
+#, sh-format
+msgid "Version: $VERSION"
+msgstr ""
+
+#: installer-cli:67
+#, sh-format
+msgid "Invalid option: -$OPTARG"
+msgstr ""
+
+#: installer-cli:68
+#, sh-format
+msgid "Option -$OPTARG requires an argument."
+msgstr ""
+
+#: installer-cli:73
+msgid "E: You need to be root to run the script"
+msgstr ""
+
+#: installer-cli:83
+msgid "dialog is not installed"
+msgstr ""
+
+#: installer-cli:84
+msgid "using text instead"
+msgstr ""
+
+#: installer-cli:88
+msgid "Please install ssft"
+msgstr ""
+
+#: installer-cli:101
+msgid "W: it seems that another installer-cli instance is already running."
+msgstr ""
+
+#: installer-cli:102
+msgid ""
+"If this is not the case, please remove the following lock file and start the "
+"script again:"
+msgstr ""
+
+#: installer-cli:108
+msgid "E: The script seems to be running by another instance"
+msgstr ""
+
+#: installer-cli:141
+#, sh-format
+msgid ""
+"E: Config file '${CONFIG_FILE}' exists already. Please remove it and run the "
+"script again"
+msgstr ""
+
+#: installer-cli:207
+msgid "ERROR"
+msgstr ""
+
+#: installer-cli:209
+#, sh-format
+msgid "${ERROR_LOG} might contain more information"
+msgstr ""
+
+#: installer-cli:257
+msgid "Input Password"
+msgstr ""
+
+#: installer-cli:284
+#, sh-format
+msgid ""
+"The password is too short!\n"
+"It needs to be at least 6 characters long\n"
+"\n"
+"Enter a $type password. Will not be echoed"
+msgstr ""
+
+#: installer-cli:292
+msgid "Can not continue without a password"
+msgstr ""
+
+#: installer-cli:297
+#, sh-format
+msgid ""
+"The ${type} is too short!\n"
+"It needs to be at least ${num} characters long\n"
+"\n"
+"Enter ${type} again."
+msgstr ""
+
+#: installer-cli:305
+#, sh-format
+msgid "Can not continue without a ${type}"
+msgstr ""
+
+#: installer-cli:329
+#, sh-format
+msgid ""
+"The passwords do not match\n"
+"Enter a ${type} password. Will not be echoed"
+msgstr ""
+
+#: installer-cli:335 installer-cli:345
+#, sh-format
+msgid "Can not continue without a ${type} password"
+msgstr ""
+
+#: installer-cli:340 installer-cli:915 installer-cli:949
+msgid "Please enter the password again. Will not be echoed"
+msgstr ""
+
+#: installer-cli:362
+msgid "Unmount Partitions"
+msgstr ""
+
+#: installer-cli:363
+msgid ""
+"Some partitions are still mounted.\n"
+"You need to unmount them for the installer to continue.\n"
+"\n"
+"Unmount now?"
+msgstr ""
+
+#: installer-cli:373
+msgid ""
+"Could not unmount all partitions\n"
+" \n"
+"Aborting.."
+msgstr ""
+
+#: installer-cli:377
+#, sh-format
+msgid ""
+"Could not unmount all partitions\n"
+"    \n"
+"Aborting..\n"
+"  \n"
+"I: If you choose 'no' the configuration file will stay\n"
+"in ${CONFIG_FILE}!"
+msgstr ""
+
+#: installer-cli:386
+msgid "Partitions unmounted successfully"
+msgstr ""
+
+#: installer-cli:390
+msgid ""
+"You chose not to unmount the partitions\n"
+"Aborting.."
+msgstr ""
+
+#: installer-cli:393
+#, sh-format
+msgid ""
+"You chose not to unmount the partitions\n"
+"Aborting..\n"
+"\n"
+"I: If you choose 'no' the configuration file will stay\n"
+"in ${CONFIG_FILE}!"
+msgstr ""
+
+#: installer-cli:429
+msgid "Could not mount partition. Aborting"
+msgstr ""
+
+#: installer-cli:433 installer-cli:436 installer-cli:444
+msgid "Check home"
+msgstr ""
+
+#: installer-cli:433
+msgid "Username exists"
+msgstr ""
+
+#: installer-cli:434
+msgid ""
+"Username already exists on the partition you selected as home\n"
+"Do you want to choose a new username or remove the mount point?"
+msgstr ""
+
+#: installer-cli:444
+msgid "Cancelling.."
+msgstr ""
+
+#: installer-cli:453
+msgid "Format disk"
+msgstr ""
+
+#: installer-cli:454
+msgid "Do you want to partition your hard disk?"
+msgstr ""
+
+#: installer-cli:458
+msgid "Please choose a partitioning program. Available programs are:"
+msgstr ""
+
+#: installer-cli:464
+msgid "Please choose a disk to partition. Available disks are:"
+msgstr ""
+
+#: installer-cli:475
+msgid ""
+"You have chosen not to partition your hard disk\n"
+"If you have not at least one partition on the disk\n"
+"the installer will not be able to complete the installation\n"
+"If you do not have a partition please abort now!\n"
+"\n"
+"Press ctrl+C to abort or ENTER to continue"
+msgstr ""
+
+#: installer-cli:489
+msgid "Timezone selection"
+msgstr ""
+
+#: installer-cli:490
+#, sh-format
+msgid ""
+"Current timezone is: $initialTZ\n"
+"\n"
+"Do you want to change the timezone?"
+msgstr ""
+
+#: installer-cli:507
+msgid "Keeping current timezone"
+msgstr ""
+
+#: installer-cli:517
+msgid "Partitioning"
+msgstr ""
+
+#: installer-cli:518
+msgid ""
+"No partitions were detected by the installer. Do you want to manually set a "
+"partion?"
+msgstr ""
+
+#: installer-cli:521
+msgid "Please input a root partition."
+msgstr ""
+
+#: installer-cli:522 installer-cli:547
+msgid "Root partition"
+msgstr ""
+
+#: installer-cli:529
+msgid ""
+"The partition you entered is not a block device. Please enter a root "
+"partition."
+msgstr ""
+
+#: installer-cli:538
+msgid "You have not entered a valid partition. Please enter a root partition"
+msgstr ""
+
+#: installer-cli:551 installer-cli:567
+msgid "Can not continue without root partition"
+msgstr ""
+
+#: installer-cli:570
+msgid "Can not continue without partition"
+msgstr ""
+
+#: installer-cli:596
+msgid "Format hard disk"
+msgstr ""
+
+#: installer-cli:597
+msgid ""
+"Do you want the installer to format your\n"
+"root partition?"
+msgstr ""
+
+#: installer-cli:610
+msgid "Filesystem selection"
+msgstr ""
+
+#: installer-cli:611
+msgid "Select a file system for your root partition"
+msgstr ""
+
+#: installer-cli:618
+#, sh-format
+msgid "Could not set filesystem. Using ${FILESYSTEM}"
+msgstr ""
+
+#: installer-cli:626
+msgid "Install Partition"
+msgstr ""
+
+#: installer-cli:627
+msgid ""
+"Choose a partition to install aptosid onto.\n"
+"  Available partitions are:"
+msgstr ""
+
+#: installer-cli:665
+msgid "Set mount points"
+msgstr ""
+
+#: installer-cli:666
+msgid ""
+"Do you want to set mount points for other partitions?\n"
+"\t\n"
+"W: The partitions need to be already formated\n"
+"\t\n"
+"I: The root partition is already set and you should not\n"
+"   set it again"
+msgstr ""
+
+#: installer-cli:679
+msgid ""
+"Choose a partition to set its mount point.\n"
+"Available partitions are:"
+msgstr ""
+
+#: installer-cli:697
+#, sh-format
+msgid "Choose a mount point for ${partition}"
+msgstr ""
+
+#: installer-cli:777
+msgid "Invalid option"
+msgstr ""
+
+#: installer-cli:784
+msgid "Finished setting mount points"
+msgstr ""
+
+#: installer-cli:791
+msgid "Check for space"
+msgstr ""
+
+#: installer-cli:792
+msgid ""
+"Do you want the program NOT to check if there is enough space to install "
+"aptosid?\n"
+"If you don't know what this means please choose 'no'"
+msgstr ""
+
+#: installer-cli:802
+msgid "Swap autodetect"
+msgstr ""
+
+#: installer-cli:803
+msgid "Do you want the installer to autodetect swap?"
+msgstr ""
+
+#: installer-cli:813 installer-cli:822
+msgid "Select swap"
+msgstr ""
+
+#: installer-cli:814
+msgid "Select the partitions you want to be used as swap by the installer"
+msgstr ""
+
+#: installer-cli:823
+msgid "You have no swap partitions. Nothing to select"
+msgstr ""
+
+#: installer-cli:830 installer-cli:845
+msgid "Input Real Name"
+msgstr ""
+
+#: installer-cli:831
+msgid "Please enter your real name"
+msgstr ""
+
+#: installer-cli:846
+#, sh-format
+msgid ""
+"Your input contains characters which are not allowed\n"
+"Characters which are not allowed are:\n"
+"\n"
+"${NAME_NAME_NOT_ALLOWED_CHARS}\n"
+"\n"
+"Please enter again your real name"
+msgstr ""
+
+#: installer-cli:867 installer-cli:879
+msgid "Input username"
+msgstr ""
+
+#: installer-cli:868
+msgid "Please input your username"
+msgstr ""
+
+#: installer-cli:880
+#, sh-format
+msgid ""
+"Username contains characters which are not allowed\n"
+"Allowed characters are:\n"
+"\n"
+"${USERNAME_ALLOWED_CHARS}\n"
+"\n"
+"Please enter username"
+msgstr ""
+
+#: installer-cli:901
+#, sh-format
+msgid ""
+"Enter a password for user '${USERNAME}'. Will not be echoed\n"
+"\n"
+"I: Do not use a minus (-) as the first character of the password,\n"
+"   a space as the last or a backslash (\\) anywhere in the password\n"
+"   as those are currently not supported."
+msgstr ""
+
+#: installer-cli:910 installer-cli:920
+msgid "Can not continue without a user password"
+msgstr ""
+
+#: installer-cli:935
+msgid ""
+"Enter a root password. Will not be echoed\n"
+"\n"
+"I: Do not use a minus (-) as the first character of the password,\n"
+"   a space as the last or a backslash (\\) anywhere in the password\n"
+"   as those are currently not supported."
+msgstr ""
+
+#: installer-cli:944 installer-cli:954
+msgid "Can not continue without a root password"
+msgstr ""
+
+#: installer-cli:969 installer-cli:981
+msgid "Input hostname"
+msgstr ""
+
+#: installer-cli:970
+msgid "Please input hostname"
+msgstr ""
+
+#: installer-cli:982
+#, sh-format
+msgid ""
+"Hostname contains characters which are not allowed!\n"
+"Allowed characters are:\n"
+"\n"
+"${HOSTNAME_ALLOWED_CHARS}\n"
+"  \n"
+"${HOSTNAME_ALLOWED_CHAR_OTHERS}\n"
+"\n"
+"W: The hostname must start with a letter!\n"
+"\n"
+"Please enter hostname"
+msgstr ""
+
+#: installer-cli:1006
+msgid "Services"
+msgstr ""
+
+#: installer-cli:1007
+msgid "Select the services you want to start on boot"
+msgstr ""
+
+#: installer-cli:1034
+msgid "Bootloader"
+msgstr ""
+
+#: installer-cli:1035
+msgid "Where do you want the boot-loader to be installed?"
+msgstr ""
+
+#: installer-cli:1052
+msgid "Automount"
+msgstr ""
+
+#: installer-cli:1053
+msgid "Do you want the partitions to be automounted on boot?"
+msgstr ""
+
+#: installer-cli:1239
+msgid "Finished creating configuration file"
+msgstr ""
+
+#: installer-cli:1255
+msgid "Call Installer"
+msgstr ""
+
+#: installer-cli:1262
+#, sh-format
+msgid ""
+"Some error occured. Looking at ${ERROR_LOG} might provide you with answers"
+msgstr ""

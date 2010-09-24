@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/sh                                                                   
 #                                                                                 
-# Copyright  (C) 2009-2010 Nikolas Poniros <edhunter@aptosid.com> 
+# Copyright  (C) 2009-2010 Nikolas Poniros <edhunter@aptosid.com                                      
 #                          
 # heavily based on install-gui written by
 #	Horst Tritremmel <peter_weber69@gmx.at>                        
@@ -25,7 +25,7 @@
 #                                                                                 
 # version: 0.2.9
 #--------------------------------------------------------------------------
-#
+
 #Short description of the script:
 #The script creates the config file ($HOME/.sidconfig) needed by the fll-installer
 #and then calls the fll-installer to install aptosid using said config file. 
@@ -33,45 +33,31 @@
 #2 if user aborts after config file is written (whenever a user presses OK at an error message
 #it is considered as a user abort even if he has no other choice)
 
-. gettext.sh
-
-export TEXTDOMAIN="installer-cli"
-export TEXTDOMAINDIR="./locale"
-
-VERSION="0.2.9"
-
-call_help () {
-cat << EOF
-$(gettext "installer-cli - Install aptosid live cd onto harddik
-Usage: installer-cli -h print this help message
-                     -I [interface]
-                        select an interface to use with ssft.
-                        options are: text , dialog
-                        Default is dialog if installed
-                     -v print program version")
-EOF
-exit
+call_help ()
+{
+	echo "Usage: installer-cli -I [interface]"
+	echo "Options:"
+	echo " -v print program version"
+	echo " -h print this help message"
+	echo " -I interface"
+	echo "		select an interface to use with ssft."
+	echo "		options are: text , dialog "
+	echo "		Default is dialog if installed"
+	exit
 }
 
-while getopts :vhI: opt
+while getopts vhI: opt
 	do
 		case $opt in
-			h) call_help;;
-			I) 
-        if [ $OPTARG = "text" ] || [ $OPTARG = "dialog" ]; then
-          interface="$OPTARG"
-        else echo $(eval_gettext "Invalid argument for option -I: \$OPTARG")
-          exit 1
-        fi;;
-      v) echo $(eval_gettext "Version: \$VERSION"); exit;;
-     \?) echo $(eval_gettext "Invalid option: -\$OPTARG"); exit 1;;
-      :) echo $(eval_gettext "Option -\$OPTARG requires an argument."); exit 1;;
+			v)  echo "Version: 0.2.9"; exit;;
+			I)  interface="$OPTARG";;
+			h)  call_help;;
 		esac
 	done
 
 if [ $( id -u ) -ne 0 ]; then
-  echo >&2 $(gettext "E: You need to be root to run the script")
-###########	exit 1
+	echo >&2 "E: You need to be root to run the script"
+	exit 1
 fi
 
 if [ -f /usr/bin/ssft.sh ]; then
@@ -80,33 +66,13 @@ if [ -f /usr/bin/ssft.sh ]; then
 	[ "${interface}" = "text" ] && SSFT_FRONTEND="${interface}" || SSFT_FRONTEND="dialog"
 
 	if [ "${SSFT_FRONTEND}" = "dialog" ] && [ -z `which dialog` ]; then
-    echo $(gettext "dialog is not installed")
-    echo $(gettext "using text instead")
+		echo "dialog is not installed"
+		echo "using text instead"
 		SSFT_FRONTEND="text"
 	fi
 else
-  echo $(gettext "Please install ssft")
+	echo "Please install ssft"
 	exit 1
-fi
-
-echo $$
-PIDDI=`ps ux | awk '/installer-cli/ && /\/bin\/sh/ {print $2}' && echo $$`
-echo $PIDDI
-
-pgrep installer-cli
-exit
-
-PID="$HOME/installer-cli.pid"
-if [ -e ${PID} ]; then
-  echo $(gettext "W: it seems that another installer-cli instance is already running.")
-  echo $(gettext "If this is not the case, please remove the following lock file and start the script again:")
-  echo "'${PID}'"
-else ps|grep installer-cli|awk "{print \$1}" > ${PID}
-fi
-
-if [ "ps ux | awk '/installer-cli/ && /\/bin\/sh/ {print $2}' | wc -l" -ne 1 ]; then
-  echo $(gettext "E: The script seems to be running by another instance")
-  exit 1
 fi
 
 ### DEFINE CONSTANTS ###
@@ -138,7 +104,7 @@ SWAP_PART_LIST=$(mktemp /tmp/swap_part_list.XXXXXXXX)
 
 
 if [ -f ${CONFIG_FILE} ]; then
-  echo >&2 $(eval_gettext "E: Config file '\${CONFIG_FILE}' exists already. Please remove it and run the script again")
+	echo >&2 "E: Config file exists please remove it and run the script again"
 	exit 1
 fi
 
@@ -204,9 +170,9 @@ yesno ()
 # the config to be deleted
 error_msg () 
 {
-  title=$(gettext "ERROR")
+	title="ERROR"
 	msg="$1"
-  msg="${msg} $(eval_gettext "\${ERROR_LOG} might contain more information")"
+	msg="${msg} ${ERROR_LOG} might contain more information"
 	exit_code="$2"
 	ssft_display_error "${title}" "${msg}"
 	rm -f ${PARTITIONS_LIST}
@@ -254,7 +220,7 @@ select_one ()
 
 input_pass () 
 {
-  title=$(gettext "Input Password")
+	title="Input Password"
 	msg="$1"
 	ssft_read_password "${title}" "${msg}"
 	return $?
@@ -281,28 +247,28 @@ length_check ()
 	title="$5"
 	if [ "${is_pass}" = "yes" ]; then
 		while [ ${#string} -lt 6 ]; do
-			msg=$(eval_gettext "The password is too short!
-It needs to be at least 6 characters long
+			msg="The password is too short!
+				It needs to be at least 6 characters long
 
-Enter a \$type password. Will not be echoed")
+				Enter a $type password. Will not be echoed"
 			input_pass "${msg}"
 			if [ $? -eq 0 ]; then
 				string="${SSFT_RESULT}"
 			else
-        error_msg $(gettext "Can not continue without a password") "1"
+				error_msg "Can not continue without a password" "1"
 			fi
 		done
 	else
 		while [ ${#string} -lt ${num} ]; do
-			msg=$(eval_gettext "The \${type} is too short!
-It needs to be at least \${num} characters long
+			msg="The ${type} is too short!
+				It needs to be at least ${num} characters long
 
-Enter \${type} again.")
+				Enter ${type} again."
 			input_string "${title}" "${msg}"
 			if [ $? -eq 0 ]; then
 				string="${SSFT_RESULT}"
 			else
-        error_msg $(eval_gettext "Can not continue without a \${type}") "1"
+				error_msg "Can not continue without a ${type}" "1"
 			fi
 		done
 	fi
@@ -326,23 +292,23 @@ compare_pass ()
 	type="$3"
 	while [ "${pass1}" != "${pass2}" ]
 		do
-			msg=$(eval_gettext "The passwords do not match
-Enter a \${type} password. Will not be echoed")
+			msg="The passwords do not match
+				Enter a ${type} password. Will not be echoed"
 			input_pass "${msg}"
 			if [ $? -eq 0 ]; then
 				pass1="${SSFT_RESULT}"
 			else
-        error_msg $(eval_gettext "Can not continue without a \${type} password") "1"
+				error_msg "Can not continue without a ${type} password" "1"
 			fi
 			# This line will set ${type}PASS assuming that it passes the length test
 			length_check "${pass1}" "${type}" "yes"
 
-      input_pass $(gettext "Please enter the password again. Will not be echoed")
+			input_pass "Please enter the password again. Will not be echoed"
 
 			if [ $? -eq 0 ]; then
 				pass2="${SSFT_RESULT}"
 			else
-        error_msg $(eval_gettext "Can not continue without a \${type} password") "1"
+				error_msg "Can not continue without a ${type} password" "1"
 			fi
 		done
 }
@@ -359,42 +325,42 @@ check_for_mounted_disks ()
     exit_status=$?
 
     if [ $exit_status -eq 1 ]; then
-      title=$(gettext "Unmount Partitions")
-	msg=$(gettext "Some partitions are still mounted.
-You need to unmount them for the installer to continue.
-
-Unmount now?")
+	title="Unmount Partitions"
+	msg="Some partitions are still mounted.
+		You need to unmount them for the installer to continue.
+		
+		Unmount now?"
 	yesno "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
 		/usr/share/fll-installer-common/um_all
 		exit_status=$?
 		if [ $exit_status -eq 1 ]; then
 			if [ $before_config_write -eq 1 ]; then
-			    msg=$(gettext "Could not unmount all partitions
- 
-Aborting..")
-			else
-			    msg=$(eval_gettext "Could not unmount all partitions
+			    msg="Could not unmount all partitions
     
-Aborting..
-  
-I: If you choose 'no' the configuration file will stay
-in \${CONFIG_FILE}!")
+				Aborting.."
+			else
+			    msg="Could not unmount all partitions
+    
+				Aborting..
+			      
+				I: If you choose 'no' the configuration file will stay
+				in ${CONFIG_FILE}!"
 			fi
 			error_msg "${msg}" "$before_config_write"
 		else 
-      display_msg "${title}" $(gettext "Partitions unmounted successfully")
+			display_msg "${title}" "Partitions unmounted successfully"
 		fi
 	else
 	    if [ $before_config_write -eq 1 ]; then
-		msg=$(gettext "You chose not to unmount the partitions
-Aborting..")
+		msg="You chose not to unmount the partitions
+			Aborting.."
 	    else
-		msg=$(eval_gettext "You chose not to unmount the partitions
-Aborting..
-
-I: If you choose 'no' the configuration file will stay
-in \${CONFIG_FILE}!")
+		msg="You chose not to unmount the partitions
+			Aborting..
+      
+			I: If you choose 'no' the configuration file will stay
+			in ${CONFIG_FILE}!"
 	    fi
 	    error_msg "${msg}" "$before_config_write"
 	fi
@@ -426,14 +392,14 @@ home_exists ()
 				fi
 				break
 			elif [ $exit_status -eq 1 ]; then
-        error_msg $(gettext "Could not mount partition. Aborting") "1"
+				error_msg "Could not mount partition. Aborting" "1"
 			# exit_status of check_existing_home is 2
 			else
 				#needs some more info
-        display_msg $(gettext "Check home") $(gettext "Username exists")
-				msg=$(gettext "Username already exists on the partition you selected as home
-Do you want to choose a new username or remove the mount point?")
-          select_one $(gettext "Check home") "${msg}" "username mount-point"
+				display_msg "Check home" "Username exists"
+				msg="Username already exists on the partition you selected as home
+					Do you want to choose a new username or remove the mount point?"
+				select_one "Check home" "${msg}" "username mount-point"
 				if [ $? -eq 0 ]; then
 					if [ "${SSFT_RESULT}" = "username" ]; then
 						 input_username
@@ -441,7 +407,7 @@ Do you want to choose a new username or remove the mount point?")
 						 HOME_PARTITION=""
 					fi
 				else
-          error_msg $(gettext "Check home") $(gettext "Cancelling..") "1"
+					error_msg "Check home" "Cancelling.." "1"
 				fi
 			fi
 		done
@@ -450,18 +416,18 @@ Do you want to choose a new username or remove the mount point?")
 # Function to call cfdisk_wrapper to format the hard disk
 format_disk () 
 {
-  title=$(gettext "Format disk")
-  msg=$(gettext "Do you want to partition your hard disk?")
+	title="Format disk"
+	msg="Do you want to partition your hard disk?"
 	yesno "${title}" "${msg}" 
 
 	if [ $? -eq 0 ]; then
-    msg=$(gettext "Please choose a partitioning program. Available programs are:")
+		msg="Please choose a partitioning program. Available programs are:"
 		programs_list="cfdisk fdisk"
 		SSFT_DEFAULT="${PARTITION_PROG}"
 		select_one "${title}" "${msg}" $programs_list
 		if [ $? -eq 0 ]; then
 		    PARTITION_PROG="${SSFT_RESULT}"
-        msg=$(gettext "Please choose a disk to partition. Available disks are:")
+		    msg="Please choose a disk to partition. Available disks are:"
 		    partition_list=$(/usr/share/fll-installer-common/disk -d 2>/dev/null)
 		    select_more "${title}" "${msg}" $partition_list
 		    if [ $? -eq 0 ]; then
@@ -472,12 +438,12 @@ format_disk ()
 		    fi
 		fi
 	else
-		msg=$(gettext "You have chosen not to partition your hard disk
-If you have not at least one partition on the disk
-the installer will not be able to complete the installation
-If you do not have a partition please abort now!
-
-Press ctrl+C to abort or ENTER to continue")
+		msg="You have chosen not to partition your hard disk
+			If you have not at least one partition on the disk
+			the installer will not be able to complete the installation
+			If you do not have a partition please abort now!
+		
+			Press ctrl+C to abort or ENTER to continue"
 		display_msg "${title}" "${msg}"
 	fi
 }
@@ -485,11 +451,11 @@ Press ctrl+C to abort or ENTER to continue")
 # Function for timezone selection
 set_timezone () 
 {
-	initialTZ="$(cat /etc/timezone)"
-  title=$(gettext "Timezone selection")
-	msg=$(eval_gettext "Current timezone is: \$initialTZ
-
-Do you want to change the timezone?")
+	#initialTZ="$(cat /etc/timezone)"
+	title="Timezone selection"
+	msg="Current timezone is: "$(cat /etc/timezone)"
+	
+		Do you want to change the timezone?"
 	yesno "${title}" "${msg}"
 
 	if [ $? -eq 0 ]; then
@@ -504,8 +470,7 @@ Do you want to change the timezone?")
 		 #   dpkg-reconfigure tzdata
 		#fi
 	else
-    msg=$(gettext "Keeping current timezone")
-    display_msg "${title}" "${msg}"
+		display_msg "${title}" "Keeping current timezone"
 	fi
 }
 
@@ -514,19 +479,19 @@ Do you want to change the timezone?")
 custom_root ()
 {
 	#give the user the option to manually set a root partition in case no partitions were found
-  title=$(gettext "Partitioning")
-  msg=$(gettext "No partitions were detected by the installer. Do you want to manually set a partion?")
+	title="Partitioning"
+	msg="No partitions were detected by the installer. Do you want to manually set a partion?"
 	yesno "$title" "$msg"
 	if [ $? -eq 0 ]; then
-    msg=$(gettext "Please input a root partition.")
-    input_string "$(gettext "Root partition")" "$msg"
+		msg="Please input a root partition."
+		input_string "Root partition" "$msg"
 		if [ $? -eq 0 ]; then
 			ROOT_PARTITION="${SSFT_RESULT}"
 			partition_invalid=true
 			while true; do
 				partition_valid="true"
 				if [ ! -b "${ROOT_PARTITION}" ]; then
-          msg=$(gettext "The partition you entered is not a block device. Please enter a root partition.")
+					msg="The partition you entered is not a block device. Please enter a root partition."
 					# not a block device. not valid partition
 					partition_valid="false"
 				fi
@@ -535,7 +500,7 @@ custom_root ()
 				# in case of /dev/mapper/* make no checks as we can not assume anything about the partition name
 				if [ "$(echo "${ROOT_PARTITION}" | grep "/dev/[h,s]d.")" != "" ]; then
 					if [ "$(echo "${ROOT_PARTITION}" | grep "[h,s]d.[0-9]")" = "" ]; then
-            msg=$(gettext "You have not entered a valid partition. Please enter a root partition")
+						msg="You have not entered a valid partition. Please enter a root partition"
 						# turns out partition was not valid
 						partition_valid="false"
 					fi
@@ -544,11 +509,11 @@ custom_root ()
 					# all good
 					break
 				else
-          input_string $(gettext "Root partition") "$msg"
+					input_string "Root partition" "$msg"
 					if [ $? -eq 0 ]; then
 						ROOT_PARTITION="${SSFT_RESULT}"
 					else
-            error_msg $(gettext "Can not continue without root partition") "1"
+						error_msg "Can not continue without root partition" "1"
 					fi
 				fi
 			done
@@ -564,10 +529,10 @@ custom_root ()
 				IS_DISK_USB="yes"
 			fi
 		else
-      error_msg $(gettext "Can not continue without root partition") "1"
+			error_msg "Can not continue without root partition" "1"
 		fi
 	else
-    error_msg $(gettext "Can not continue without partition") "1"
+		error_msg "Can not continue without partition" "1"
 	fi
 }
 
@@ -593,9 +558,9 @@ custom_root ()
 # Only for root partition
 format_root () 
 {
-  title=$(gettext "Format hard disk")
-	msg=$(gettext "Do you want the installer to format your
-root partition?")
+	title="Format hard disk"
+	msg="Do you want the installer to format your
+		root partition?"
 	yesno "${title}" "${msg}"
 
 	if [ $? -ne 0 ]; then
@@ -607,15 +572,15 @@ root partition?")
 # Only for root partition
 select_fs () 
 {
-  title=$(gettext "Filesystem selection")
-  msg=$(gettext "Select a file system for your root partition")
+	title="Filesystem selection"
+	msg="Select a file system for your root partition"
 	options="ext3 ext4 ext2 reiserfs"
 	SSFT_DEFAULT="ext4"
 	select_one "${title}" "${msg}" $options
 	if [ $? -eq 0 ]; then
 		FILESYSTEM="${SSFT_RESULT}"
 	else
-    msg=$(eval_gettext "Could not set filesystem. Using \${FILESYSTEM}")
+		msg="Could not set filesystem. Using ${FILESYSTEM}"
 		display_msg "${title}" "${msg}"
 	fi
 
@@ -623,9 +588,9 @@ select_fs ()
 
 choose_root () 
 {
-  title=$(gettext "Install Partition")
-	msg=$(gettext "Choose a partition to install aptosid onto.
-  Available partitions are:")
+	title="Install Partition"
+	msg="Choose a partition to install aptosid onto.
+		Available partitions are:"
 	select_one "${title}" "${msg}" $(cat ${PARTITIONS_LIST} | cut -d "," -f1) "custom"
 
 	if [ $? -eq 0 ]; then
@@ -662,13 +627,13 @@ choose_root ()
 # set mount points for partitions other than root
 set_mount_points () 
 {
-  title=$(gettext "Set mount points")
-	msg=$(gettext "Do you want to set mount points for other partitions?
+	title="Set mount points"
+	msg="Do you want to set mount points for other partitions?
 	
-W: The partitions need to be already formated
+		W: The partitions need to be already formated
 	
-I: The root partition is already set and you should not
-   set it again")
+		I: The root partition is already set and you should not
+		set it again"
 	yesno "${title}" "${msg}"
 
 	# Code to select mount point and partition
@@ -676,8 +641,8 @@ I: The root partition is already set and you should not
 		## Loop while PARTITIONS_LIST is not empty. If user selects cancel loop will break
 		while [ -n "$(cat ${PARTITIONS_LIST})" ]
 			do
-				msg=$(gettext "Choose a partition to set its mount point.
-Available partitions are:")
+				msg="Choose a partition to set its mount point.
+					Available partitions are:"
 				select_one "${title}" "${msg}" $(cat ${PARTITIONS_LIST}  | cut -d "," -f1)
 				if [ $? -eq 0 ]; then
 
@@ -694,8 +659,8 @@ Available partitions are:")
 					cp ${PARTITIONS_LIST} ${PARTITIONS_LIST_2}
 					# Find the partition name $partition_name and remove it from the list
 					sed /${partition_name}/d ${PARTITIONS_LIST_2} > ${PARTITIONS_LIST}
-          msg=$(eval_gettext "Choose a mount point for \${partition}")
-          available_mount_points="home boot opt root tmp usr var"
+					msg="Choose a mount point for ${partition}"
+					available_mount_points="home boot opt root tmp usr var"
 					select_one "${title}" "${msg}" "${available_mount_points}"
 					# If user pressed cancel break out of the loop
 
@@ -774,23 +739,23 @@ Available partitions are:")
 							fi
 							;;
 						* )	
-              error_msg $(gettext "Invalid option") "1"
+							error_msg "Invalid option" "1"
 					esac
 				else
 					break
 				fi
 			done
 	fi
-  display_msg "${title}" "$(gettext "Finished setting mount points")"
+	display_msg "${title}" "Finished setting mount points"
 }
 
 # Asks the user if the installer should not check if there is 
 # enough space on the partition
 ignore_disk_space () 
 {
-  title=$(gettext "Check for space")
-	msg=$(gettext "Do you want the program NOT to check if there is enough space to install aptosid?
-If you don't know what this means please choose 'no'")
+	title="Check for space"
+	msg="Do you want the program NOT to check if there is enough space to install aptosid?
+		If you don't know what this means please choose 'no'"
 	yesno "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
 		IGNORE_DISK_SPACE="yes"
@@ -799,8 +764,8 @@ If you don't know what this means please choose 'no'")
 
 auto_detect_swap () 
 {
-  title=$(gettext "Swap autodetect")
-  msg=$(gettext "Do you want the installer to autodetect swap?")
+	title="Swap autodetect"
+	msg="Do you want the installer to autodetect swap?"
 	yesno "${title}" "${msg}"
 	if [ $? -ne 0 ]; then
 		AUTO_SWAP="no"
@@ -810,8 +775,8 @@ auto_detect_swap ()
 select_swap () 
 {
 	if [ -s ${SWAP_PART_LIST} ]; then
-    title=$(gettext "Select swap")
-    msg=$(gettext "Select the partitions you want to be used as swap by the installer")
+		title="Select swap"
+		msg="Select the partitions you want to be used as swap by the installer"
 		select_more "$title" "$msg" $(cat $SWAP_PART_LIST)
 		if [ $? -eq 0 ]; then
 			#ssft returns a list with \n in it. remove it and also use sed to remove the space
@@ -819,16 +784,16 @@ select_swap ()
 			SWAP_LIST="$(echo ${SSFT_RESULT} | tr '\n' ' ' | sed 's/ $//g' )"
 		fi
 	else
-    title=$(gettext "Select swap")
-    msg=$(gettext "You have no swap partitions. Nothing to select")
+		title="Select swap"
+		msg="You have no swap partitions. Nothing to select"
 		display_msg "$title" "$msg"
 	fi
 }
 
 input_real_name () 
 {
-  title=$(gettext "Input Real Name")
-  msg=$(gettext "Please enter your real name")
+	title="Input Real Name"
+	msg="Please enter your real name"
 
 	input_string "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
@@ -842,13 +807,13 @@ input_real_name ()
 	# Make sure that name contains only valid characters
 	while [ -n "$( echo "${name}" | grep "[${NAME_NAME_NOT_ALLOWED_CHARS}]" )" ]
 		do
-      title=$(gettext "Input Real Name")
-			msg=$(eval_gettext "Your input contains characters which are not allowed
-Characters which are not allowed are:
-
-\${NAME_NAME_NOT_ALLOWED_CHARS}
-
-Please enter again your real name")
+			title="Input Real Name"
+			msg="Your input contains characters which are not allowed
+				Characters which are not allowed are:
+		
+				${NAME_NAME_NOT_ALLOWED_CHARS}
+			
+				Please enter again your real name"
 			input_string "${title}" "${msg}"
 			if [ $? -eq 0 ]; then
 				name="${SSFT_RESULT}"
@@ -864,8 +829,8 @@ Please enter again your real name")
 
 input_username () 
 {
-  title=$(gettext "Input username")
-  msg=$(gettext "Please input your username")
+	title="Input username"
+	msg="Please input your username"
 
 	input_string "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
@@ -876,13 +841,13 @@ input_username ()
 
 	while [ ! $(echo "${USERNAME}" | grep "^[${USERNAME_ALLOWED_CHARS}]*$") ]
 		do
-      title=$(gettext "Input username")
-			msg=$(eval_gettext "Username contains characters which are not allowed
-Allowed characters are:
+			title="Input username"
+			msg="Username contains characters which are not allowed
+				Allowed characters are:
 
-\${USERNAME_ALLOWED_CHARS}
+				${USERNAME_ALLOWED_CHARS}
 
-Please enter username")
+				Please enter username"
 		
 			input_string "${title}" "${msg}"
 			if [ $? -eq 0 ]; then
@@ -898,26 +863,26 @@ Please enter username")
 
 input_user_pass ()
 {
-	msg=$(eval_gettext "Enter a password for user '\${USERNAME}'. Will not be echoed
-
-I: Do not use a minus (-) as the first character of the password,
-   a space as the last or a backslash (\) anywhere in the password
-   as those are currently not supported.")
+	msg="Enter a user password. Will not be echoed
+	    
+	    I: Do not use a minus (-) as the first character of the password,
+		a space as the last or a backslash (\) anywhere in the password
+		as those are currently not supported."
 	input_pass "${msg}"
 	if [ $? -eq 0 ]; then
 		USERPASS="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a user password") "1"
+		error_msg "Can not continue without a user password" "1"
 	fi
 
 	length_check "${USERPASS}" "user" "yes"
 
-  input_pass "$(gettext "Please enter the password again. Will not be echoed")"
+	input_pass "Please enter the password again. Will not be echoed"
 
 	if [ $? -eq 0 ]; then
 		pass2="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a user password") "1"
+		error_msg "Can not continue without a user password" "1"
 	fi
 
 	compare_pass "${USERPASS}" "${pass2}" "user"
@@ -932,26 +897,26 @@ I: Do not use a minus (-) as the first character of the password,
 
 input_root_pass ()
 {
-	msg=$(gettext "Enter a root password. Will not be echoed
-
-I: Do not use a minus (-) as the first character of the password,
-   a space as the last or a backslash (\) anywhere in the password
-   as those are currently not supported.")
+	msg="Enter a root password. Will not be echoed
+	    
+	    I: Do not use a minus (-) as the first character of the password,
+		a space as the last or a backslash (\) anywhere in the password
+		as those are currently not supported."
 	input_pass "${msg}"
 	if [ $? -eq 0 ]; then
 		ROOTPASS="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a root password") "1"
+		error_msg "Can not continue without a root password" "1"
 	fi
 
 	length_check "${ROOTPASS}" "root" "yes"
 
-  input_pass "$(gettext "Please enter the password again. Will not be echoed")"
+	input_pass "Please enter the password again. Will not be echoed"
 
 	if [ $? -eq 0 ]; then
 		pass2="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a root password") "1"
+		error_msg "Can not continue without a root password" "1"
 	fi
 
 	compare_pass "${ROOTPASS}" "${pass2}" "root"
@@ -966,8 +931,8 @@ I: Do not use a minus (-) as the first character of the password,
 
 input_hostname () 
 {
-  title=$(gettext "Input hostname")
-  msg=$(gettext "Please input hostname")
+	title="Input hostname"
+	msg="Please input hostname"
 	SSFT_DEFAULT="${HOST_NAME}"
 	input_string "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
@@ -978,17 +943,17 @@ input_hostname ()
 
 	while [ ! $(echo "${HOST_NAME}" | grep "^[${HOSTNAME_ALLOWED_CHARS}][${HOSTNAME_ALLOWED_CHARS}${HOSTNAME_ALLOWED_CHAR_OTHERS}]*$") ]
       		do
-      title=$(gettext "Input hostname")
-      msg=$(eval_gettext "Hostname contains characters which are not allowed!
-Allowed characters are:
+			title="Input hostname"
+			msg="Hostname contains characters which are not allowed!
+				Allowed characters are:
 
-\${HOSTNAME_ALLOWED_CHARS}
+				${HOSTNAME_ALLOWED_CHARS}
   
-\${HOSTNAME_ALLOWED_CHAR_OTHERS}
+				${HOSTNAME_ALLOWED_CHAR_OTHERS}
 
-W: The hostname must start with a letter!
+				W: The hostname must start with a letter!
 
-Please enter hostname")
+				Please enter hostname"
 
 			input_string "${title}" "${msg}"
 			if [ $? -eq 0 ]; then
@@ -1003,8 +968,8 @@ Please enter hostname")
 # start during boot
 input_services () 
 {
-  title=$(gettext "Services")
-  msg=$(gettext "Select the services you want to start on boot")
+	title="Services"
+	msg="Select the services you want to start on boot"
 	#services="cups smail ssh samba"
 	services="ssh"
 	select_more "$title" "$msg" $services
@@ -1031,15 +996,15 @@ input_services ()
 # Ask the user where he wants to place the boot-loader mbr or partition
 place_boot_loader ()
 {
-  title=$(gettext "Bootloader")
-  msg=$(gettext "Where do you want the boot-loader to be installed?")
+	title="Bootloader"
+	msg="Where do you want the boot-loader to be installed?"
 	options="mbr partition"
 	SSFT_DEFAULT="${BOOT_WHERE}"
 	select_one "${title}" "${msg}" $options
 	if [ $? -eq 0 ]; then
 		BOOT_WHERE="${SSFT_RESULT}"
 	else
-    msg=$(eval_gettext "Could not set bootloader. Using ${BOOT_WHERE}")
+		msg="Could not set bootloader. Using ${BOOT_WHERE}"
 		display_msg "${title}" "${msg}"
 	fi
 }
@@ -1049,8 +1014,8 @@ place_boot_loader ()
 # default is yes
 auto_mount_partitions () 
 {
-  title=$(gettext "Automount")
-  msg=$(gettext "Do you want the partitions to be automounted on boot?")
+	title="Automount"
+	msg="Do you want the partitions to be automounted on boot?"
 	yesno "${title}" "${msg}"
 	if [ $? -ne 0 ]; then
 		AUTOMOUNT_BOOT="no"
@@ -1236,7 +1201,7 @@ auto_mount_partitions
 
 write_config
 
-display_msg "cli-installer" "$(gettext "Finished creating configuration file")"
+display_msg "cli-installer" "Finished creating configuration file"
 
 
 # remove the temporary file with the partition list
@@ -1252,14 +1217,14 @@ if [ $SSFT_FRONTEND = "dialog" ]; then
 fi
 
 ### CALL INSTALLER
-title=$(gettext "Call Installer")
-msg=$(eval_gettext "Finished all checks.
-Do you want to start the installation?
-I: If you choose 'no' the configuration file will stay
-   in ${CONFIG_FILE}!")
+title="Call Installer"
+msg="Finished all checks.
+	Do you want to start the installation?
+	I: If you choose 'no' the configuration file will stay
+	in ${CONFIG_FILE}!"
 yesno "${title}" "${msg}"
 if [ $? -eq 0 ]; then
-  fll-installer || echo $(eval_gettext "Some error occured. Looking at \${ERROR_LOG} might provide you with answers") && exit 1
+	fll-installer || echo "Some error occured. Looking at ${ERROR_LOG} might provide you with answers" && exit 1
 fi
 
 # if all goes well remove log
