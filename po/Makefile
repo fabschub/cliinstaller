@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 PO := $(wildcard *.po)
-MO := kernel-remover.mo
+MO := installer.cli.mo
 
 all: $(PO)
 
