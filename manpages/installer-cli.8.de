@@ -1,0 +1,29 @@
+.TH "INSTALLER-CLI" 8 "September 2010" "" ""
+.SH NAME
+installer-cli - Installiert die aptosid-Live-CD auf eine Festplatte
+.SH SYNOPSIS
+\fBinstaller-cli\fR \fI<Optionen>\fR
+.SH BESCHREIBUNG
+\fBinstaller-cli\fR erstellt eine Konfigurationsdatei ($HOME/.sidconfig) und ruft \fBfll-installer\fR auf, welches diese Datei auswertet, um aptosid zu installieren.
+.SH OPTIONEN
+.TP
+\fB\-I\fR \fI<Interface>\fR
+Benutzt \fI<Interface>\fR f\(:ur die Ausgabe. M\(:ogliche Optionen lauten \fBtext\fR | \fBdialog\fR
+.TP
+\fB\-h\fR
+Hilfe ausgeben
+.TP
+\fB\-v\fR
+Versionsinformationen ausgeben
+.SH EXIT CODES
+.TP
+\fB0\fR
+installer-cli war erfolgreich. Es gab keine Fehler.
+.TP
+\fB1\fR
+installer-cli wurde abgebrochen, bevor die Konfigurationsdatei geschrieben wurde.
+.TP
+\fB2\fR
+installer-cli wurde abgebrochen nachdem die Konfigurationsdatei angelegt wurde. Dies geschieht immer dann, wenn ein Benutzer OK bei einer Fehlermeldung w\(:ahlt, selbst wenn keine andere Auswahlm\(:oglichkeit besteht.
+.SH AUTOREN
+Nikolas Poniros (edhunter@aptosid.com) und andere.
