@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 PO := $(wildcard *.po)
-MO := installer.cli.mo
+MO := installer-cli.mo
 
 all: $(PO)
 

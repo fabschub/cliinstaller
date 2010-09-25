@@ -29,6 +29,7 @@
 #Short description of the script:
 #The script creates the config file ($HOME/.sidconfig) needed by the fll-installer
 #and then calls the fll-installer to install aptosid using said config file. 
+# TODO Is that really true? (exit code 2)
 #Exit codes are: 0 if successful, 1 if user aborts before the config file is written
 #2 if user aborts after config file is written (whenever a user presses OK at an error message
 #it is considered as a user abort even if he has no other choice)
@@ -37,7 +38,7 @@
 
 export TEXTDOMAIN="installer-cli"
 # TODO change it to /usr/share/locale after testing
-export TEXTDOMAINDIR="./locale"
+export TEXTDOMAINDIR="./po/locale"
 
 VERSION="0.2.9"
 
