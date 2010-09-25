@@ -17,6 +17,7 @@ Depends: ${shlibs:Depends},
  aptosid-scripts (>= 0.2.6),
  fll-live-initscripts (>= 2.0.64),
  psmisc,
+ gettext-base,
  ssft,
  udev (>= 0.146),
  util-linux (>= 2.16.1)
