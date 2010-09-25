@@ -1,12 +1,10 @@
-.TH INSTALLER-CLI "8" "September 2010" "" ""
+.TH "INSTALLER-CLI" "8" "September 2010" "" ""
 .SH NAME
-installer-cli - install aptosid live cd onto harddisk
+installer-cli - installs aptosid live cd onto disk
 .SH SYNOPSIS
 \fBinstaller-cli\fR \fI<options>
 .SH DESCRIPTION
-\fBinstaller-cli\fR creates the config file ($HOME/.sidconfig) needed by the \fBfll-installer\fR and then calls the \fBfll-installer\fR to install aptosid using said config file.
-'\".sp
-'\"If installed \fBdialog\fR is the default interface. Otherwise \fIreadline\fR is used.
+\fBinstaller-cli\fR is minimal textmode GUI to create the config file \fI$HOME/.sidconfig\fR needed by \fBfll-installer\fR for installing a aptosid/fullstory system to disk for use on X-less or GTK2-less systems.
 .SH OPTIONS
 .TP
 \fB\-I\fR \fI<Interface>\fR
@@ -23,9 +21,9 @@ Display version information.
 if successful
 .TP
 \fB1\fR
-if user aborts before the config file is written
+if script aborts with errors
 .TP
 \fB2\fR
-if user aborts after config file is written (whenever a user presses OK at an error message it is considered as a user abort even if he has no other choice)
+if user aborts the script
 .SH AUTHORS
 Nikolas Poniros (edhunter@aptosid.com) and others.
