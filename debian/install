@@ -1,1 +1,2 @@
-installer-cli   usr/sbin
+installer-cli	usr/sbin
+po/locale	usr/share/
