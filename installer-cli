@@ -91,22 +91,8 @@ else
 	exit 1
 fi
 
-echo $$
-PIDDI=`ps ux | awk '/installer-cli/ && /\/bin\/sh/ {print $2}' && echo $$`
-echo $PIDDI
-
-pgrep installer-cli
-exit
-
-PID="$HOME/installer-cli.pid"
-if [ -e ${PID} ]; then
-  echo $(gettext "W: it seems that another installer-cli instance is already running.")
-  echo $(gettext "If this is not the case, please remove the following lock file and start the script again:")
-  echo "'${PID}'"
-else ps|grep installer-cli|awk "{print \$1}" > ${PID}
-fi
-
-if [ "ps ux | awk '/installer-cli/ && /\/bin\/sh/ {print $2}' | wc -l" -ne 1 ]; then
+# TODO think about a better way to check if another instance is running already
+if [ $(ps ux | awk '/installer-cli/ && /\/bin\/sh/ {print $2}' | wc -l) -ne 2 ]; then
   echo $(gettext "E: The script seems to be running by another instance")
   exit 1
 fi
