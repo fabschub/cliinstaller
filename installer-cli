@@ -270,27 +270,27 @@ length_check ()
 	if [ "${is_pass}" = "yes" ]; then
 		while [ ${#string} -lt 6 ]; do
 			msg=$(eval_gettext "The password is too short!
-It needs to be at least 6 characters long
+It needs to be at least 6 characters long.
 
 Enter a \$type password. Will not be echoed")
 			input_pass "${msg}"
 			if [ $? -eq 0 ]; then
 				string="${SSFT_RESULT}"
 			else
-        error_msg $(gettext "Can not continue without a password") "1"
+        error_msg "$(gettext "Can not continue without a password")" "1"
 			fi
 		done
 	else
 		while [ ${#string} -lt ${num} ]; do
 			msg=$(eval_gettext "The \${type} is too short!
-It needs to be at least \${num} characters long
+It needs to be at least \${num} characters long.
 
 Enter \${type} again.")
 			input_string "${title}" "${msg}"
 			if [ $? -eq 0 ]; then
 				string="${SSFT_RESULT}"
 			else
-        error_msg $(eval_gettext "Can not continue without a \${type}") "1"
+        error_msg "$(eval_gettext "Can not continue without \${type}")" "1"
 			fi
 		done
 	fi
@@ -320,7 +320,7 @@ Enter a \${type} password. Will not be echoed")
 			if [ $? -eq 0 ]; then
 				pass1="${SSFT_RESULT}"
 			else
-        error_msg $(eval_gettext "Can not continue without a \${type} password") "1"
+        error_msg "$(eval_gettext "Can not continue without \${type} password")" "1"
 			fi
 			# This line will set ${type}PASS assuming that it passes the length test
 			length_check "${pass1}" "${type}" "yes"
@@ -330,7 +330,7 @@ Enter a \${type} password. Will not be echoed")
 			if [ $? -eq 0 ]; then
 				pass2="${SSFT_RESULT}"
 			else
-        error_msg $(eval_gettext "Can not continue without a \${type} password") "1"
+        error_msg "$(eval_gettext "Can not continue without a \${type} password")" "1"
 			fi
 		done
 }
@@ -414,7 +414,7 @@ home_exists ()
 				fi
 				break
 			elif [ $exit_status -eq 1 ]; then
-        error_msg $(gettext "Could not mount partition. Aborting") "1"
+        error_msg "$(gettext "Could not mount partition. Aborting")" "1"
 			# exit_status of check_existing_home is 2
 			else
 				#needs some more info
@@ -429,7 +429,7 @@ Do you want to choose a new username or remove the mount point?")
 						 HOME_PARTITION=""
 					fi
 				else
-          error_msg $(gettext "Check home") $(gettext "Cancelling..") "1"
+          error_msg "$(gettext "Check home") $(gettext "Cancelling..")" "1"
 				fi
 			fi
 		done
@@ -460,9 +460,9 @@ format_disk ()
 		    fi
 		fi
 	else
-		msg=$(gettext "You have chosen not to partition your hard disk
-If you have not at least one partition on the disk
-the installer will not be able to complete the installation
+		msg=$(gettext "You have chosen not to partition your hard disk.
+If you have not at least one partition on the disk,
+the installer will not be able to complete the installation. 
 If you do not have a partition please abort now!
 
 Press ctrl+C to abort or ENTER to continue")
@@ -536,7 +536,7 @@ custom_root ()
 					if [ $? -eq 0 ]; then
 						ROOT_PARTITION="${SSFT_RESULT}"
 					else
-            error_msg $(gettext "Can not continue without root partition") "1"
+            error_msg "$(gettext "Can not continue without root partition")" "1"
 					fi
 				fi
 			done
@@ -552,10 +552,10 @@ custom_root ()
 				IS_DISK_USB="yes"
 			fi
 		else
-      error_msg $(gettext "Can not continue without root partition") "1"
+      error_msg "$(gettext "Can not continue without root partition")" "1"
 		fi
 	else
-    error_msg $(gettext "Can not continue without partition") "1"
+    error_msg "$(gettext "Can not continue without partition")" "1"
 	fi
 }
 
@@ -582,8 +582,7 @@ custom_root ()
 format_root () 
 {
   title=$(gettext "Format hard disk")
-	msg=$(gettext "Do you want the installer to format your
-root partition?")
+	msg=$(gettext "Do you want the installer to format your root partition?")
 	yesno "${title}" "${msg}"
 
 	if [ $? -ne 0 ]; then
@@ -613,7 +612,7 @@ choose_root ()
 {
   title=$(gettext "Install Partition")
 	msg=$(gettext "Choose a partition to install aptosid onto.
-  Available partitions are:")
+Available partitions are:")
 	select_one "${title}" "${msg}" $(cat ${PARTITIONS_LIST} | cut -d "," -f1) "custom"
 
 	if [ $? -eq 0 ]; then
@@ -655,8 +654,8 @@ set_mount_points ()
 	
 W: The partitions need to be already formated
 	
-I: The root partition is already set and you should not
-   set it again")
+I: The root partition is already set and you should
+   not set it again")
 	yesno "${title}" "${msg}"
 
 	# Code to select mount point and partition
@@ -762,7 +761,7 @@ Available partitions are:")
 							fi
 							;;
 						* )	
-              error_msg $(gettext "Invalid option") "1"
+              error_msg "$(gettext "Invalid option")" "1"
 					esac
 				else
 					break
@@ -772,6 +771,7 @@ Available partitions are:")
   display_msg "${title}" "$(gettext "Finished setting mount points")"
 }
 
+# TODO IMHO this is not the best way to ask because 'yes' is the default button in dialog. A better way would be to ask in other direction.
 # Asks the user if the installer should not check if there is 
 # enough space on the partition
 ignore_disk_space () 
@@ -895,17 +895,17 @@ I: Do not use a minus (-) as the first character of the password,
 	if [ $? -eq 0 ]; then
 		USERPASS="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a user password") "1"
+    error_msg "$(gettext "Can not continue without a user password")" "1"
 	fi
 
 	length_check "${USERPASS}" "user" "yes"
 
-  input_pass "$(gettext "Please enter the password again. Will not be echoed")"
+  input_pass "$(gettext 'Please enter the password again. Will not be echoed')"
 
 	if [ $? -eq 0 ]; then
 		pass2="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a user password") "1"
+    error_msg "$(gettext "Can not continue without a user password")" "1"
 	fi
 
 	compare_pass "${USERPASS}" "${pass2}" "user"
@@ -929,7 +929,7 @@ I: Do not use a minus (-) as the first character of the password,
 	if [ $? -eq 0 ]; then
 		ROOTPASS="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a root password") "1"
+    error_msg "$(gettext "Can not continue without a root password")" "1"
 	fi
 
 	length_check "${ROOTPASS}" "root" "yes"
@@ -939,7 +939,7 @@ I: Do not use a minus (-) as the first character of the password,
 	if [ $? -eq 0 ]; then
 		pass2="${SSFT_RESULT}"
 	else
-    error_msg $(gettext "Can not continue without a root password") "1"
+    error_msg "$(gettext "Can not continue without a root password")" "1"
 	fi
 
 	compare_pass "${ROOTPASS}" "${pass2}" "root"
@@ -1243,8 +1243,8 @@ fi
 title=$(gettext "Call Installer")
 msg=$(eval_gettext "Finished all checks.
 Do you want to start the installation?
-I: If you choose 'no' the configuration file will stay
-   in ${CONFIG_FILE}!")
+I: If you choose 'no' the configuration file
+   will stay in ${CONFIG_FILE}!")
 yesno "${title}" "${msg}"
 if [ $? -eq 0 ]; then
   fll-installer || echo $(eval_gettext "Some error occured. Looking at \${ERROR_LOG} might provide you with answers") && exit 1
